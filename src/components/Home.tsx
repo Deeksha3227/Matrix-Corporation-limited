@@ -68,7 +68,7 @@ export default function Home({
   const [trustIndex, setTrustIndex] = useState(0);
   const trustItems = [
     {
-      title: "Officially Authorised Distributor",
+      title: "Authorised Distributor",
       desc: "Matrix Corporation holds official authorization to distribute high-efficiency electrical and electronic products in Mangalore and Udupi. Every unit is 100% authentic with a brand-backed manufacturer warranty.",
       icon: <Shield className="w-8 h-8 text-white" />
     },

@@ -24,6 +24,7 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState<string>('home');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedType, setSelectedType] = useState<string>('');
 
   // MODAL PRODUCT DETAILS
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
@@ -79,6 +80,16 @@ export default function App() {
   // Helper trigger to open category in Products catalog
   const handleSelectCategoryAndNavigate = (cat: string) => {
     setSelectedCategory(cat);
+    setSelectedType('');
+    setSearchQuery('');
+    setActiveProduct(null);
+    setCurrentPage('products');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectTypeAndNavigate = (cat: string, type: string) => {
+    setSelectedCategory(cat);
+    setSelectedType(type);
     setSearchQuery('');
     setActiveProduct(null);
     setCurrentPage('products');
@@ -106,17 +117,15 @@ export default function App() {
         setCurrentPage={setCurrentPage}
         setSelectedCategory={(cat) => {
           setSelectedCategory(cat);
+          setSelectedType('');
           setSearchQuery('');
           setActiveProduct(null);
         }}
+        setSelectedType={setSelectedType}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         onSelectSubcategory={(cat, sub) => {
-          setSelectedCategory(cat);
-          setSearchQuery(sub);
-          setActiveProduct(null);
-          setCurrentPage('products');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          handleSelectTypeAndNavigate(cat, sub);
         }}
       />
 
@@ -134,6 +143,7 @@ export default function App() {
         {currentPage === 'about' && <About />}
         {currentPage === 'products' && (
           <Products 
+            initialType={selectedType}
             initialCategory={selectedCategory}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
@@ -175,25 +185,13 @@ export default function App() {
               </div>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed mb-6">
-              Official authorised distributor of electrical and electronic products across Mangalore & Udupi. Powering trust. Delivering value.
+              Authorised Distributor across Mangalore & Udupi. Powering trust. Delivering value.
             </p>
             <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
-              Authorised Distributor of Electrical and Electronic Products
+              Authorised Distributor of KENSTAR
             </div>
-            {/* Social Icons */}
-            <div className="flex items-center gap-3 mt-6">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-slate-800 hover:border-red-600 flex items-center justify-center text-slate-400 hover:text-white transition-all bg-slate-950">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-slate-800 hover:border-red-600 flex items-center justify-center text-slate-400 hover:text-white transition-all bg-slate-950">
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a href="https://wa.me/918310235515" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-slate-800 hover:border-[#25D366] flex items-center justify-center text-slate-400 hover:text-white transition-all bg-slate-950">
-                <WhatsAppIcon className="w-4 h-4" />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-slate-800 hover:border-red-600 flex items-center justify-center text-slate-400 hover:text-white transition-all bg-slate-950">
-                <Linkedin className="w-4 h-4" />
-              </a>
+            <div className="mt-6">
+              <img src="kenstar-logo-min.avif" alt="KENSTAR logo" className="h-10 object-contain" />
             </div>
           </div>
 

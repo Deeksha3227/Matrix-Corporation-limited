@@ -5,6 +5,7 @@ interface NavbarProps {
   currentPage: string;
   setCurrentPage: (page: string) => void;
   setSelectedCategory: (cat: string) => void;
+  setSelectedType: (type: string) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   onSelectSubcategory?: (cat: string, sub: string) => void;
@@ -14,6 +15,7 @@ export default function Navbar({
   currentPage,
   setCurrentPage,
   setSelectedCategory,
+  setSelectedType,
   searchQuery,
   setSearchQuery,
   onSelectSubcategory
@@ -63,6 +65,8 @@ export default function Navbar({
 
   const handleCategoryClick = (catName: string) => {
     setSelectedCategory(catName);
+    setSelectedType('');
+    setSearchQuery('');
     setCurrentPage('products');
     setMobileMenuOpen(false);
   };
@@ -72,7 +76,8 @@ export default function Navbar({
       onSelectSubcategory(catName, subItem);
     } else {
       setSelectedCategory(catName);
-      setSearchQuery(subItem);
+      setSelectedType(subItem);
+      setSearchQuery('');
       setCurrentPage('products');
     }
     setMobileMenuOpen(false);
@@ -90,7 +95,7 @@ export default function Navbar({
       <div className="bg-[#0D1B3E] text-slate-300 text-xs py-2.5 px-4 md:px-10 flex flex-col md:flex-row justify-between items-center gap-2 border-b border-slate-800">
         <div className="flex items-center gap-2 font-medium tracking-wide">
           <span className="inline-block w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
-          Authorised Distributor of Electrical and Electronic Products | Mangalore & Udupi District
+          Authorised Distributor of KENSTAR | Mangalore & Udupi District
         </div>
         <div className="flex items-center flex-wrap gap-4 text-slate-400">
           <span className="flex items-center gap-1.5">

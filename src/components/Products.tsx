@@ -5,6 +5,7 @@ import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface ProductsProps {
   initialCategory: string;
+  initialType: string;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   onBuyNow: (product: Product) => void;
@@ -14,6 +15,7 @@ interface ProductsProps {
 
 export default function Products({
   initialCategory,
+  initialType,
   searchQuery,
   setSearchQuery,
   onBuyNow,
@@ -22,16 +24,13 @@ export default function Products({
 }: ProductsProps) {
   // FILTER STATES
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || '');
-  const [selectedType, setSelectedType] = useState<string>('');
-  const [maxPrice, setMaxPrice] = useState<number>(75000);
-  const [minRating, setMinRating] = useState<number>(0);
-  const [sortBy, setSortBy] = useState<string>('recommended');
+  const [selectedType, setSelectedType] = useState<string>(initialType || '');
   
-  // Sync prop category to state
+  // Sync prop category and type to state
   React.useEffect(() => {
     setSelectedCategory(initialCategory || '');
-    setSelectedType('');
-  }, [initialCategory]);
+    setSelectedType(initialType || '');
+  }, [initialCategory, initialType]);
 
   const handleCategorySelect = (cat: string) => {
     setSelectedCategory(cat);
@@ -47,19 +46,8 @@ export default function Products({
                           p.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === '' || p.category === selectedCategory;
     const matchesType = selectedType === '' || p.type === selectedType;
-    const matchesPrice = p.mrp <= maxPrice;
-    const matchesRating = p.rating >= minRating;
-    return matchesSearch && matchesCategory && matchesType && matchesPrice && matchesRating;
+    return matchesSearch && matchesCategory && matchesType;
   });
-
-  // Sort logic
-  if (sortBy === 'price-low') {
-    filteredProducts.sort((a, b) => a.mrp - b.mrp);
-  } else if (sortBy === 'price-high') {
-    filteredProducts.sort((a, b) => b.mrp - a.mrp);
-  } else if (sortBy === 'rating') {
-    filteredProducts.sort((a, b) => b.rating - a.rating);
-  }
 
   // Image error state tracker to substitute fallbacks
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallback: string) => {
@@ -162,66 +150,6 @@ export default function Products({
             </div>
           )}
 
-          {/* Budget Price Slider */}
-          <div className="mb-6">
-            <div className="flex justify-between items-center mb-3">
-              <h4 className="text-[11px] font-bold text-[#0D1B3E] uppercase tracking-wider">
-                Max Price
-              </h4>
-              <span className="text-xs font-extrabold text-red-600">
-                ₹{maxPrice.toLocaleString('en-IN')}
-              </span>
-            </div>
-            <input 
-              type="range" 
-              min="800" 
-              max="75000" 
-              step="500"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(Number(e.target.value))}
-              className="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-red-600"
-            />
-            <div className="flex justify-between text-[10px] font-bold text-slate-400 mt-2">
-              <span>₹800</span>
-              <span>₹75,000</span>
-            </div>
-          </div>
-
-          {/* Star Rating Filter */}
-          <div className="mb-6">
-            <h4 className="text-[11px] font-bold text-[#0D1B3E] uppercase tracking-wider mb-3">
-              Min Rating
-            </h4>
-            <div className="flex flex-col gap-1.5">
-              {[0, 4.5, 4.8].map((rate, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setMinRating(rate)}
-                  className={`w-full text-left text-xs font-semibold py-2 px-3 rounded-lg transition-colors flex items-center gap-1.5 ${minRating === rate ? 'bg-red-50 text-red-600 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
-                >
-                  <Star className={`w-3.5 h-3.5 fill-current ${rate > 0 ? 'text-yellow-500' : 'text-slate-400'}`} />
-                  {rate === 0 ? "All Ratings" : `${rate} Stars & above`}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Sort By selector */}
-          <div>
-            <h4 className="text-[11px] font-bold text-[#0D1B3E] uppercase tracking-wider mb-3">
-              Sort Results
-            </h4>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-700 outline-none font-semibold focus:border-red-600"
-            >
-              <option value="recommended">Recommended</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="rating">Top Rated</option>
-            </select>
-          </div>
         </aside>
 
         {/* RIGHT MAIN PRODUCTS GRID */}
@@ -257,8 +185,6 @@ export default function Products({
                   setSearchQuery('');
                   setSelectedCategory('');
                   setSelectedType('');
-                  setMaxPrice(75000);
-                  setMinRating(0);
                 }}
                 className="mt-6 bg-[#0D1B3E] hover:bg-red-600 text-white font-bold text-xs uppercase py-2.5 px-6 rounded-lg transition-colors"
               >

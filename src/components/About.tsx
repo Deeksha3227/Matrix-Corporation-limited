@@ -36,7 +36,7 @@ export default function About() {
               About <span className="text-[#F5A623]">Matrix</span> <br />Corporation
             </h1>
             <div className="space-y-2">
-              <h3 className="text-lg font-bold text-slate-800">Authorised Distributor of Electrical and Electronic Products</h3>
+              <h3 className="text-lg font-bold text-slate-800">Authorised Distributor of KENSTAR</h3>
               <p className="text-base font-semibold text-red-600">
                 Serving Mangalore & Udupi <span className="text-[#F5A623]">Since 2026</span>
               </p>
@@ -110,7 +110,7 @@ export default function About() {
             
             <div className="space-y-4 text-slate-600 text-sm md:text-base leading-relaxed">
               <p>
-                Matrix Corporation is the premier authorised distributor of electrical and electronic products across the entire Mangalore and Udupi districts. Established by a dedicated team of professionals, we bring together deep combined experience in sales, logistics, and supply chain distribution. This multi-sector competence allows us to streamline operations, facilitate high-volume dealer transactions, and ensure unmatched market responsiveness.
+                Matrix Corporation is the premier authorised distributor of KENSTAR across the entire Mangalore and Udupi districts. Established by a dedicated team of professionals, we bring together deep combined experience in sales, logistics, and supply chain distribution. This multi-sector competence allows us to streamline operations, facilitate high-volume dealer transactions, and ensure unmatched market responsiveness.
               </p>
               <p>
                 Our core mission and goal are to provide highly reliable, smooth, and quick distribution of our premium products to partner outlets and consumers across the coastal districts. Recognizing that efficient distribution is the backbone of retail growth, we maintain a persistent focus on inventory depth, transparent trade pricing, and rapid delivery loops that minimize lead times.
@@ -127,6 +127,15 @@ export default function About() {
 
 
 
+
+      <section className="py-20 px-6 lg:px-12 bg-slate-50">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-xl font-bold uppercase tracking-[0.35em] text-red-600 mb-6">PARTNERS WITH</p>
+          <div className="bg-white p-10 rounded-3xl shadow-xl border border-slate-200 inline-flex items-center justify-center mx-auto">
+            <img src="kenstar-logo-min.avif" alt="KENSTAR logo" className="h-32 md:h-36 object-contain" />
+          </div>
+        </div>
+      </section>
 
       {/* ── REAL INTERACTIVE GOOGLE MAP SECTION ── */}
       <section className="py-12 px-6 lg:px-12 bg-white relative">
