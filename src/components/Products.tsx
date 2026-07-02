@@ -304,28 +304,9 @@ export default function Products({
                         {product.name}
                       </h3>
 
-                      {/* Rating row */}
-                      <div className="flex items-center gap-1 mb-3">
-                        <div className="flex text-yellow-400">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <Star key={i} className={`w-3 h-3 fill-current ${i < Math.floor(product.rating) ? '' : 'opacity-30'}`} />
-                          ))}
-                        </div>
-                        <span className="text-[9px] font-bold text-slate-400">
-                          {product.reviewsCount}
-                        </span>
-                      </div>
                     </div>
 
                     <div className="pt-3 border-t border-slate-100">
-                      {/* Price Row */}
-                      <div className="flex items-baseline gap-1.5 mb-4">
-                        <span className="text-base font-extrabold text-[#0D1B3E]">
-                          ₹{product.mrp.toLocaleString('en-IN')}
-                        </span>
-                      </div>
-
-                      {/* CTA Buttons */}
                       <div className="w-full">
                         <button 
                           onClick={() => setActiveProduct(product)}
@@ -406,18 +387,6 @@ export default function Products({
                       </span>
                     )}
                   </h2>
-
-                  {/* Price */}
-                  <div className="flex flex-col gap-0.5 mb-6">
-                    <div className="flex items-baseline gap-2.5">
-                      <span className="text-2xl font-extrabold text-slate-900">
-                        ₹{activeProduct.mrp.toLocaleString('en-IN')}
-                      </span>
-                    </div>
-                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
-                      Inclusive of all Taxes
-                    </span>
-                  </div>
 
                   {/* Custom EMI, Cashbacks, and SKU badge */}
                   

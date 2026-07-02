@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { Product } from '../data/products';
 import { 
   ChevronRight, Award, Truck, ShieldCheck, CheckCircle, 
-  TrendingUp, Percent, MessageSquare, Star, ArrowRight, Shield 
+  TrendingUp, Percent, MessageSquare, ArrowRight, Shield 
 } from 'lucide-react';
 
 interface HomeProps {
@@ -322,7 +322,6 @@ export default function Home({
           {/* Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {filteredBestsellers.map((product) => {
-              const emi = Math.round(product.mrp / 9);
               return (
                 <article 
                   key={product.id}
@@ -348,32 +347,12 @@ export default function Home({
                   {/* Body container */}
                   <div className="p-6 flex flex-col justify-between flex-1">
                     <div>
-                      {/* Rating row */}
-                      <div className="flex items-center gap-1.5 mb-2.5">
-                        <div className="flex text-yellow-400">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <Star key={i} className={`w-3.5 h-3.5 fill-current ${i < Math.floor(product.rating) ? '' : 'opacity-30'}`} />
-                          ))}
-                        </div>
-                        <span className="text-[10px] font-bold text-slate-400 tracking-wider">
-                          {product.reviewsCount}
-                        </span>
-                      </div>
-
                       <h3 className="text-white font-bold text-base mb-3 leading-snug hover:text-red-400 transition-colors cursor-pointer" onClick={() => onViewProduct(product)}>
                         {product.name}
                       </h3>
                     </div>
 
                     <div className="mt-4 pt-4 border-t border-slate-800">
-                      {/* Price Row */}
-                      <div className="flex items-baseline gap-2 mb-4">
-                        <span className="text-xl font-extrabold text-white">
-                          ₹{product.mrp.toLocaleString('en-IN')}
-                        </span>
-                      </div>
-
-                      {/* CTA Buttons */}
                       <div className="w-full">
                         <button 
                           onClick={() => onViewProduct(product)}
