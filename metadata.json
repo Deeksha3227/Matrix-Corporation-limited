@@ -1,0 +1,6 @@
+{
+  "name": "Matrix Corporation Ltd",
+  "description": "Official authorized distributor of electrical and electronic products for Mangalore and Udupi districts featuring product catalog, services, partnership enquiries, and contact details.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
