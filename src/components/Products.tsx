@@ -340,7 +340,7 @@ export default function Products({
                   {/* Technical Specs Table */}
                   <div className="mb-8">
                     <h4 className="text-[11px] font-bold text-slate-800 uppercase tracking-widest mb-3">
-                      Technical Specifications
+                      
                     </h4>
                     <div className="border border-slate-200/60 rounded-xl overflow-hidden text-xs">
                       {Object.entries(activeProduct.specs).map(([key, val], idx) => (
