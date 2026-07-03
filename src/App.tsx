@@ -185,7 +185,7 @@ export default function App() {
               </div>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed mb-6">
-              Authorised Distributor across Mangalore & Udupi. Powering trust. Delivering value.
+              Distributor across Mangalore & Udupi. Powering trust. Delivering value.
             </p>
             <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
               Authorised Distributor of KENSTAR
@@ -285,9 +285,6 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-slate-500 text-[11px] font-bold">
           <span>© 2026 Matrix Corporation. All Rights Reserved.</span>
           <div className="flex items-center gap-4 text-slate-500">
-            <span className="cursor-pointer hover:text-white transition-colors">Privacy Policy</span>
-            <span>|</span>
-            <span className="cursor-pointer hover:text-white transition-colors">Terms & Conditions</span>
           </div>
         </div>
       </footer>

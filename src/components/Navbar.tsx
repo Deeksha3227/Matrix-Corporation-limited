@@ -95,7 +95,7 @@ export default function Navbar({
       <div className="bg-[#0D1B3E] text-slate-300 text-xs py-2.5 px-4 md:px-10 flex flex-col md:flex-row justify-between items-center gap-2 border-b border-slate-800">
         <div className="flex items-center gap-2 font-medium tracking-wide">
           <span className="inline-block w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
-          Authorised Distributor of KENSTAR | Mangalore & Udupi District
+          Distributor Of Electric and Electronics| Mangalore & Udupi District
         </div>
         <div className="flex items-center flex-wrap gap-4 text-slate-400">
           <span className="flex items-center gap-1.5">
