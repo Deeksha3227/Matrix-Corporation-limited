@@ -78,9 +78,9 @@ export default function App() {
   };
 
   // Helper trigger to open category in Products catalog
-  const handleSelectCategoryAndNavigate = (cat: string) => {
+  const handleSelectCategoryAndNavigate = (cat: string, type = '') => {
     setSelectedCategory(cat);
-    setSelectedType('');
+    setSelectedType(type);
     setSearchQuery('');
     setActiveProduct(null);
     setCurrentPage('products');
@@ -102,7 +102,10 @@ export default function App() {
     let message = "Hi Matrix Corporation Ltd! I am looking to connect regarding custom distributorship and bulk dealership terms for my retail outlet.";
     
     if (product) {
-      message = `Hi Matrix Corporation Ltd! I'm interested in knowing more about the following product:\n\n*${product.name}*\nCategory: ${product.category}\nPrice: ₹${product.mrp.toLocaleString('en-IN')}\n\nPlease share wholesale bulk quotes and stock availability.`;
+      const priceLine = product.mrp === undefined
+        ? ''
+        : `\nMRP: ₹${product.mrp.toLocaleString('en-IN')}`;
+      message = `Hi Matrix Corporation Ltd! I'm interested in knowing more about the following product:\n\n*${product.name}*\nCategory: ${product.category}${priceLine}\n\nPlease share wholesale bulk quotes and stock availability.`;
     }
 
     const waUrl = `https://wa.me/${defaultNumber}?text=${encodeURIComponent(message)}`;
@@ -114,6 +117,7 @@ export default function App() {
       {/* FLOATING TOP BAR & HEADER STITCHED */}
       <Navbar 
         currentPage={currentPage}
+        selectedCategory={selectedCategory}
         setCurrentPage={setCurrentPage}
         setSelectedCategory={(cat) => {
           setSelectedCategory(cat);
@@ -170,9 +174,9 @@ export default function App() {
           <div>
             <div className="flex items-center gap-2.5 mb-4 group cursor-pointer" onClick={() => { setCurrentPage('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
               <img 
-                src="logo.png" 
+                src="matrix-logo.jpeg"
                 alt="Matrix Corp" 
-                className="w-10 h-10 object-contain rounded-lg transition-all group-hover:scale-105"
+                className="w-11 h-11 object-contain rounded-full transition-all group-hover:scale-105"
                 referrerPolicy="no-referrer"
               />
               <div className="flex flex-col">
@@ -188,10 +192,14 @@ export default function App() {
               Distributor across Mangalore & Udupi. Powering trust. Delivering value.
             </p>
             <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
-              Authorised Distributor of KENSTAR
+              AUTHORISED DISTRIBUTORS OF
             </div>
-            <div className="mt-6">
-              <img src="kenstar-logo-min.avif" alt="KENSTAR logo" className="h-10 object-contain" />
+            <div className="mt-3 flex flex-wrap gap-2 text-[10px] font-black text-slate-200 tracking-[0.12em]">
+              {['solara', 'wipro', 'kenstar', 'philips'].map((brand) => (
+                <span key={brand} className="bg-slate-800/80 px-2.5 py-1 rounded-md border border-slate-700 uppercase">
+                  {brand}
+                </span>
+              ))}
             </div>
           </div>
 
@@ -216,23 +224,6 @@ export default function App() {
                     className={`hover:text-red-500 transition-colors cursor-pointer font-bold ${currentPage === item.id ? 'text-[#F28C28]' : 'text-slate-400'}`}
                   >
                     {item.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Category links */}
-          <div>
-            <h4 className="text-white font-black text-xs uppercase tracking-wider mb-6">APPLIANCE CATEGORIES</h4>
-            <ul className="space-y-3.5 text-xs font-bold text-slate-400">
-              {["Fans", "Coolers", "Kitchen Appliances", "Home Appliances", "Steamers", "Water Heaters"].map((cat, i) => (
-                <li key={i}>
-                  <button 
-                    onClick={() => handleSelectCategoryAndNavigate(cat)}
-                    className="hover:text-red-500 transition-colors cursor-pointer text-left"
-                  >
-                    {cat}
                   </button>
                 </li>
               ))}

@@ -17,6 +17,14 @@ const BlueWaves = ({ className = "absolute inset-0" }: { className?: string }) =
 );
 
 export default function About() {
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const authorizedBrands = [
+    { name: 'Solara', logo: `${baseUrl}solara/solara-logo.png` },
+    { name: 'Wipro', logo: `${baseUrl}wipro/wipro_new_logo.svg` },
+    { name: 'Kenstar', logo: `${baseUrl}kenstar/kenstar-logo.png` },
+    { name: 'Philips', logo: `${baseUrl}philips/images.png` },
+  ];
+
   return (
     <div className="w-full bg-slate-50 min-h-screen font-sans relative overflow-hidden">
       {/* Background container waves */}
@@ -129,9 +137,21 @@ export default function About() {
 
       <section className="py-20 px-6 lg:px-12 bg-slate-50">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-xl font-bold uppercase tracking-[0.35em] text-red-600 mb-6">Authorised Distributors Of</p>
-          <div className="bg-white p-10 rounded-3xl shadow-xl border border-slate-200 inline-flex items-center justify-center mx-auto">
-            <img src="kenstar-logo-min.avif" alt="KENSTAR logo" className="h-32 md:h-36 object-contain" />
+          <p className="text-xl font-bold uppercase tracking-[0.35em] text-red-600 mb-8">Authorised Distributors Of</p>
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+            {authorizedBrands.map((brand) => (
+              <div
+                key={brand.name}
+                className="bg-white px-6 py-5 rounded-2xl shadow-xl border border-slate-200 min-w-[170px] flex items-center justify-center h-24 md:h-28"
+              >
+                <img
+                  src={brand.logo}
+                  alt={brand.name.toUpperCase()}
+                  loading="lazy"
+                  className="max-h-16 md:max-h-20 w-auto object-contain"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>

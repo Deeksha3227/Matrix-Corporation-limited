@@ -1,10 +1,10 @@
 export interface Product {
   id: string;
   category: string;
-  type: string; // "Ceiling Fans" | "Table Fans" | "Exhaust Fans" | "BLDC Fans"
+  type: string;
   name: string;
-  price: number;
-  mrp: number;
+  price?: number;
+  mrp?: number;
   reviewsCount: string;
   rating: number;
   image: string;
@@ -18,774 +18,677 @@ export interface Product {
   flatCashback?: string;
   emiOptionCustom?: string;
   offPercentCustom?: string;
+  subtitle?: string;
 }
 
-export const PRODUCTS: Product[] = [
-  // --- CEILING FANS ---
-  {
-    id: "fan-ceiling-1",
-    category: "Fans",
-    type: "Ceiling Fans",
-    name: "Premium Ceiling Fan",
-    price: 1990,
-    mrp: 2690,
-    reviewsCount: "24 REVIEWS",
-    rating: 4.6,
-    image: "prod_fan_ceiling_1.webp",
-    fallbackImage: "prod_fan_ceiling_1.webp",
-    tag: " ",
-    description: "Enjoy high-speed air delivery with Ceiling Fan. Designed with wider blades and a powerful copper motor for maximum air circulation across large rooms.",
-    features: [
-      "High air delivery of 220 CMM",
-      "Wider blade design for superior breeze spread",
-      "100% copper-wound motor for durable performance",
-      "Double ball bearings ensuring low noise operation"
-    ],
-    specs: {
+interface TriplyVariant {
+  sku: string;
+  size: string;
+  dimension?: string;
+  caseLot?: string;
+}
 
-    }
-  },
-  {
-    id: "fan-ceiling-2",
-    category: "Fans",
-    type: "Ceiling Fans",
-    name: "Decorative Ceiling Fan",
-    price: 2490,
-    mrp: 3490,
-    reviewsCount: "16 REVIEWS",
-    rating: 4.7,
-    image: "prod_fan_ceiling_2.webp",
-    fallbackImage: "prod_fan_ceiling_2.webp",
-    tag: " ",
-    description: "Add elegance to your living spaces with the Decorative Ceiling Fan. Features a premium metallic finish with elegant gold trims and high-performance blades.",
-    features: [
-      "Premium metallic powder-coated finish for long-lasting shine",
-      "Elegant decorative ring and trim designs",
-      "Optimal performance even at low voltages",
-      "Dust-resistant blade coating for easy maintenance"
-    ],
-    specs: {
-
-    }
-  },
-
-  // --- TABLE FANS ---
-  {
-    id: "fan-table-1",
-    category: "Fans",
-    type: "Table Fans",
-    name: "High Speed Table Fan",
-    price: 1890,
-    mrp: 2590,
-    reviewsCount: "32 REVIEWS",
-    rating: 4.5,
-    image: "prod_fan_table_1.webp",
-    fallbackImage: "prod_fan_table_1.webp",
-    tag: " ",
-    description: "Stay cool anywhere with the portable Windy Table Fan. Features uniform oscillation, jerk-free speed control, and strong protective mesh grill.",
-    features: [
-      "High-speed motor for instant and powerful personal cooling",
-      "Smooth 90-degree wide oscillation sweep",
-      "Built-in thermal overload protector for motor safety",
-      "Indexable tilt mechanism for custom airflow direction"
-    ],
-    specs: {
-
-    }
-  },
-  {
-    id: "fan-table-2",
-    category: "Fans",
-    type: "Table Fans",
-    name: "Portable Table Fan",
-    price: 2190,
-    mrp: 2990,
-    reviewsCount: "14 REVIEWS",
-    rating: 4.8,
-    image: "prod_fan_table_2.webp",
-    fallbackImage: "prod_fan_table_2.webp",
-    tag: " ",
-    description: "Designed for whisper-quiet yet strong breeze, the Maxx Cool Table Fan features aerodynamically balanced blades and a highly durable copper motor.",
-    features: [
-      "Aerodynamically balanced blades for high speed and silent delivery",
-      "Elegant ergonomic body with soft-touch buttons",
-      "Strong and heavy base for complete stability",
-      "Full-copper high-thrust motor with low power draw"
-    ],
-    specs: {
-
-    }
-  },
-
-  // --- EXHAUST FANS ---
-  {
-    id: "fan-exhaust-1",
-    category: "Fans",
-    type: "Exhaust Fans",
-    name: "Ventilation Exhaust Fan",
-    price: 1190,
-    mrp: 1690,
-    reviewsCount: "42 REVIEWS",
-    rating: 4.6,
-    image: "prod_fan_exhaust_1.webp",
-    fallbackImage: "prod_fan_exhaust_1.webp",
-    tag: " ",
-    description: "Effectively remove odors, moisture, and stale air with the Fresh Air Exhaust Fan. Ideal for kitchens, bathrooms, and closed cabins.",
-    features: [
-      "Rust-proof plastic body and fan blades for humid environments",
-      "Lightweight compact structure for quick wall installation",
-      "Silent operations with gravity shutters to prevent dust ingress",
-      "Highly efficient motor with low power overhead"
-    ],
-    specs: {
-
-    }
-  },
-  {
-    id: "fan-exhaust-2",
-    category: "Fans",
-    type: "Exhaust Fans",
-    name: "High-Performance Exhaust Fan",
-    price: 1490,
-    mrp: 1990,
-    reviewsCount: "28 REVIEWS",
-    rating: 4.7,
-    image: "prod_fan_exhaust_2.jpg",
-    fallbackImage: "prod_fan_exhaust_2.jpg",
-    tag: " ",
-    description: "Keep your spaces clean and smoke-free with the heavy-duty Turbovent Exhaust Fan. Built with robust metal blades and a thermal overload protector.",
-    features: [
-      "All-metal construction with epoxy powder coating for rust resistance",
-      "High suction capacity for immediate smoke/odor extraction",
-      "Dynamically balanced metal blades for vibrations-free runs",
-      "Thermal Overload Protector (TOP) safeguards against voltage surges"
-    ],
-    specs: {
-
-    }
-  },
-
-  // --- BLDC FANS ---
-  {
-    id: "fan-bldc-1",
-    category: "Fans",
-    type: "BLDC Fans",
-    name: "BLDC Ceiling Fan",
-    price: 2990,
-    mrp: 3990,
-    reviewsCount: "18 REVIEWS",
-    rating: 5.0,
-    image: "prod_fan_bldc_1.webp",
-    fallbackImage: "prod_fan_bldc_1.webp",
-    tag: " ",
-    description: "Experience smart, energy-saving cooling with the BLDC Ceiling Fan. Equipped with a brushless DC motor, it consumes up to 60% less electricity than standard induction fans while delivering high air thrust.",
-    features: [
-      "Brushless DC (BLDC) energy-efficient motor (28W)",
-      "Smart remote control with speed control, sleep mode, and timer",
-      "Aerodynamically balanced blades for noise-free high-speed performance",
-      "Elegant metallic finish with double ball bearings"
-    ],
-    specs: {
-
-    }
-  },
-  {
-    id: "fan-bldc-2",
-    category: "Fans",
-    type: "BLDC Fans",
-    name: "BLDC Ceiling Fan",
-    price: 3290,
-    mrp: 4490,
-    reviewsCount: "35 REVIEWS",
-    rating: 4.9,
-    image: "prod_fan_bldc_2.avif",
-    fallbackImage: "prod_fan_bldc_2.avif",
-    tag: " ",
-    description: "Maximize energy savings and convenience with the BLDC Fan. Includes intelligent sleep modes, speed boosters, and multi-functional smart remote.",
-    features: [
-      "High energy efficiency with 5-Star rated performance (only 26W)",
-      "Advanced intelligent remote control with 1-8 hour timers",
-      "Boost speed mode for rapid room cooling",
-      "Operates seamlessly across a wide voltage range without speed drops"
-    ],
-    specs: {
-
-    }
-  },
-  // COOLERS
-  {
-    id: "cooler-1",
-    category: "Coolers",
-    type:"Desert Coolers",
-    name: "Honey Comb Cooler",
-    price: 11990,
-    mrp: 19490,
-    reviewsCount: "24 reviews",
-    rating: 5,
-    image: "arc_3d_50.webp",
-    fallbackImage: "arc_3d_50.web",
-    tag: " ",
-    description: "Compact Yet Efficient – The Honey Comb Air Cooler, ensuring continuous cooling in small to medium-sized spaces.It features a collapsible louver for added convenience, making it perfect for bedrooms, offices, and other compact spaces.",
-    features: [
-      "Compact Yet Efficient – The Honey Comb Air Cooler, ensuring continuous cooling in small to medium-sized spaces.",
-      "Enhanced Cooling Technology – Designed with three-side hydro dense mesh honeycomb cooling pads, it improves water retention for prolonged cooling performance.",
-      "Energy-Efficient Motor – Powered by advanced technology, it delivers superior cooling, ensuring cost-effective operation.",
-      "Customizable Air Throw – Equipped, it allows you to adjust airflow based on your cooling needs.",
-      "Smart & Space-Saving Design – Standing at 1360 mm, it features a collapsible louver for added convenience, making it perfect for bedrooms, offices, and other compact spaces."
-    ],
-    specs: {
-
-    },
-  },
-  {
-  id: "cooler-4",
-  category: "Coolers",
-  type: "Desert Cooler",
-  name: "Desert Cooler",
-  price: 9990,
-  mrp: 16990,
-  reviewsCount: "8 REVIEWS",
-  rating: 4.7,
-  image: "turbocool_xl_50.png",
-  fallbackImage: "turbocool_xl_50.png",
-  tag: " ",
-  description: "Stay cool and comfortable with this Desert Cooler. Designed to deliver efficient cooling with reliable performance, making it an ideal choice for homes and workspaces.",
-  features: [
-    "Powerful cooling performance for everyday comfort",
-    "Efficient cooling technology for enhanced airflow",
-    "Energy-efficient operation for regular use",
-    "High-performance fan for better air circulation",
-    "Adjustable airflow for personalized cooling",
-    "Convenient design for improved cooling experience",
-    "Durable construction for long-lasting performance"
-  ],
-  specs: {
-
-  }
-},
-  {
-  id: "cooler-3",
-  category: "Coolers",
-  type: "Personal Cooler",
-  name: "Personal Cooler",
-  price: 6690,
-  mrp: 11690,
-  reviewsCount: "9 REVIEWS",
-  rating: 4.6,
-  image: "tallde_45.webp",
-  fallbackImage: "tallde_45.webp",
-  tag: " ",
-  description: "Stay cool and comfortable with this Personal Cooler. Designed to provide efficient cooling with reliable performance, making it ideal for homes, offices, and personal spaces.",
-  features: [
-    "Efficient cooling performance for everyday comfort",
-    "Energy-efficient operation for regular use",
-    "Powerful airflow for consistent cooling",
-    "Smooth and adjustable airflow for personalized comfort",
-    "Convenient design for an enhanced cooling experience",
-    "Reliable performance for uninterrupted operation",
-    "Durable construction for long-lasting use"
-  ],
-  specs: {
-
-  }
-},
-// KITCHEN APPLIANCES
-  {
-  id: "kitchen-1",
-  category: "Kitchen Appliances",
-  type: "Mixer",
-  name: "3 Jar Mixer Grinder",
-  price: 2350,
-  mrp: 4490,
-  reviewsCount: "12 REVIEWS",
-  rating: 4.6,
-  image: "karishmatic_wine_red_500w.webp",
-  fallbackImage: "karishmatic_wine_red_500w.webp",
-  tag: " ",
-  description: "Prepare your favorite recipes with ease using this Mixer Grinder. Designed for everyday kitchen tasks, it offers reliable performance for grinding, blending, and mixing ingredients.",
-  features: [
-    "Powerful performance for everyday food preparation",
-    "Suitable for grinding, blending, and mixing a variety of ingredients",
-    "Multiple jars for versatile kitchen needs",
-    "Efficient blades for smooth and consistent results",
-    "Durable construction for long-lasting use",
-    "Enhanced safety features for reliable operation",
-    "Designed for convenient and hassle-free everyday use"
-  ],
-  specs: {
-
-  }
-},
-{
-  id: "kitchen-2",
-  category: "Kitchen Appliances",
-  type: "Hand Blender",
-  name: "Hand Blender",
-  price: 2035,
-  mrp: 3690,
-  reviewsCount: "12 REVIEWS",
-  rating: 4.6,
-  image: "spinza_400w_hand_blender.webp",
-  fallbackImage: "spinza_400w_hand_blender.webp",
-  tag: " ",
-  description: "Make everyday food preparation simple with this Hand Blender. Designed for quick and convenient blending, it delivers reliable performance for a variety of kitchen tasks.",
-  features: [
-    "Powerful performance for everyday blending needs",
-    "Efficient blending for smooth and consistent results",
-    "Comfortable and easy-to-hold ergonomic design",
-    "Easy to clean and maintain",
-    "Durable construction for long-lasting use",
-    "Reliable performance for daily kitchen tasks",
-    "Designed for convenient and hassle-free operation"
-  ],
-  specs: {
-
-  }
-
-},
-{
-  id: "kitchen-13",
-  category: "Kitchen Appliances",
-  type: "Juicer",
-  name: "Juicer",
-  price: 2700,
-  mrp: 4790,
-  reviewsCount: "14 REVIEWS",
-  rating: 4.7,
-  image: "nutriv_juicer_500w.jpg",
-  fallbackImage: "nutriv_juicer_500w.jpg",
-  tag: " ",
-  description: "Enjoy fresh and healthy juices with this Juicer. Designed for efficient juice extraction, it offers reliable performance and everyday convenience for your kitchen.",
-  features: [
-    "Powerful performance for efficient juicing",
-    "Designed for smooth and consistent juice extraction",
-    "Durable construction for long-lasting use",
-    "Convenient design for easy and mess-free operation",
-    "Enhanced safety features for reliable performance",
-    "Stable and user-friendly operation",
-    "Ideal for everyday kitchen use"
-  ],
-  specs: {
-
-  }
-},
-{
-  id: "kitchen-14",
-  category: "Kitchen Appliances",
-  type: "Mixer Grinder",
-  name: "Mixer Grinder",
-  price: 6800,
-  mrp: 10990,
-  reviewsCount: "15 REVIEWS",
-  rating: 4.9,
-  image: "jetmix_1000w.webp",
-  fallbackImage: "jetmix_1000w.webp",
-  tag: " ",
-  description: "Simplify your everyday cooking with this Mixer Grinder. Designed for efficient grinding, blending, and mixing, it delivers reliable performance for a variety of kitchen tasks.",
-  features: [
-    "Powerful performance for everyday food preparation",
-    "Suitable for grinding, blending, and mixing a variety of ingredients",
-    "Multiple jars for versatile kitchen needs",
-    "Efficient blades for smooth and consistent results",
-    "Durable construction for long-lasting use",
-    "Convenient and user-friendly design for daily use",
-    "Reliable performance for hassle-free cooking"
-  ],
-  specs: {
-
-  }
-},
-{
-  id: "kitchen-15",
-  category: "Kitchen Appliances",
-  type: "Wet Mixer Grinder",
-  name: "Wet Mixer Grinder",
-  price: 4895,
-  mrp: 9290,
-  reviewsCount: "50 REVIEWS",
-  rating: 4.9,
-  image: "pulsar_pro_150w.webp",
-  fallbackImage: "pulsar_pro_150w.webp",
-  tag: " ",
-  description: "Prepare your favorite recipes with ease using this Wet Mixer Grinder. Designed for efficient wet grinding and everyday food preparation, it offers reliable performance for a variety of kitchen needs.",
-  features: [
-    "Powerful performance for efficient wet grinding",
-    "Spacious design for convenient food preparation",
-    "Durable construction for long-lasting use",
-    "Efficient operation for smooth and consistent results",
-    "Versatile functionality for a variety of kitchen tasks",
-    "User-friendly design for everyday convenience",
-    "Reliable performance for daily use"
-  ],
-  specs: {
-
-  }
-},
-{
-  id: "kitchen-17",
-  category: "Kitchen Appliances",
-  type: "Air Fryer",
-  name: "Air Fryer",
-  price: 4150,
-  mrp: 7990,
-  reviewsCount: "15 REVIEWS",
-  rating: 4.7,
-  image: "opal_neo_4_5l.webp",
-  fallbackImage: "opal_neo_4_5l.webp",
-  tag: " ",
-  description: "Enjoy delicious meals with this Air Fryer. Designed for convenient and healthier cooking, it delivers reliable performance for preparing a variety of everyday dishes.",
-  features: [
-    "Efficient cooking performance for everyday meals",
-    "Spacious design suitable for a variety of recipes",
-    "Easy-to-use controls for convenient operation",
-    "Non-stick cooking surface for hassle-free cleaning",
-    "Multiple cooking options for versatile meal preparation",
-    "Enhanced safety features for reliable use",
-    "Designed for quick and convenient everyday cooking"
-  ],
-  specs: {
-
-  }
-},
-{
-  id: "kitchen-19",
-  category: "Kitchen Appliances",
-  type: "Electric Kettle",
-  name: "Electric Kettle",
-  price: 650,
-  mrp: 1390,
-  reviewsCount: "12 REVIEWS",
-  rating: 4.7,
-  image: "stylee_1_8l_kettle.webp",
-  fallbackImage: "stylee_1_8l_kettle.webp",
-  tag: " ",
-  description: "Boil water quickly and conveniently with this Electric Kettle. Designed for everyday use, it is perfect for preparing hot beverages and a variety of kitchen needs.",
-  features: [
-    "Fast and efficient boiling performance",
-    "Spacious design for everyday convenience",
-    "Durable construction for long-lasting use",
-    "Easy-to-use design for hassle-free operation",
-    "Convenient cordless handling for comfortable use",
-    "Enhanced safety features for reliable operation",
-    "Ideal for preparing hot beverages and everyday kitchen tasks"
-  ],
-  specs: {
-
-  }
-},
-{
-  id: "kitchen-27",
-  category: "Kitchen Appliances",
-  type: "Microwave",
-  name: "Microwave",
-  price: 8225,
-  mrp: 14990,
-  reviewsCount: "25 REVIEWS",
-  rating: 4.8,
-  image: "solo_20l_microwave.webp",
-  fallbackImage: "solo_20l_microwave.webp",
-  tag: " ",
-  description: "Make everyday cooking simple with this Microwave. Designed for convenient cooking, reheating, and defrosting, it delivers reliable performance for a variety of kitchen tasks.",
-  features: [
-    "Efficient heating for everyday cooking needs",
-    "Suitable for cooking, reheating, and defrosting food",
-    "Easy-to-use controls for convenient operation",
-    "Multiple cooking settings for versatile use",
-    "Reliable and consistent performance",
-    "Durable construction for everyday use",
-    "Designed for quick and hassle-free meal preparation"
-  ],
-  specs: {
-
-  }
-},
-{
-  id: "kitchen-34",
-  category: "Kitchen Appliances",
-  type: "OTG",
-  name: "OTG",
-  price: 3350,
-  mrp: 5990,
-  reviewsCount: "12 REVIEWS",
-  rating: 4.7,
-  image: "durachef_otg_10l.jpg",
-  fallbackImage: "durachef_otg_10l.jpg",
-  tag: " ",
-  description: "Bake, grill, and toast your favorite dishes with this OTG. Designed for everyday cooking, it offers reliable performance and convenient operation for a variety of recipes.",
-  features: [
-    "Efficient performance for baking, grilling, and toasting",
-    "Compact design suitable for everyday kitchen use",
-    "Adjustable cooking settings for versatile meal preparation",
-    "Even heat distribution for consistent cooking results",
-    "Easy-to-use controls for convenient operation",
-    "Reliable performance for daily cooking needs",
-    "Durable construction for long-lasting use"
-  ],
-  specs: {
-
-  }
-},
-{
-  id: "kitchen-22",
-  category: "Kitchen Appliances",
-  type: "Rice Cooker",
-  name: "Rice Cooker",
-  price: 2400,
-  mrp: 4290,
-  reviewsCount: "23 REVIEWS",
-  rating: 4.7,
-  image: "my_cook_1_8l_rice_cooker.webp",
-  fallbackImage: "my_cook_1_8l_rice_cooker.webp",
-  tag: " ",
-  description: "Cook delicious rice effortlessly with this Rice Cooker. Designed for convenient everyday cooking, it delivers reliable performance and makes meal preparation simple.",
-  features: [
-    "Efficient cooking performance for everyday meals",
-    "Spacious design suitable for family cooking",
-    "Automatic cooking and warming for added convenience",
-    "Versatile functionality for a variety of cooking needs",
-    "Easy-to-use controls for hassle-free operation",
-    "Reliable performance for daily use",
-    "Durable construction for long-lasting use"
-  ],
-  specs: {
-
-  }
-},
-{
-  id: "kitchen-26",
-  category: "Kitchen Appliances",
-  type: "Sandwich Maker",
-  name: "Sandwich Maker",
-  price: 1300,
-  mrp: 2390,
-  reviewsCount: "15 REVIEWS",
-  rating: 4.7,
-  image: "ezy_grill_sandwich_maker.webp",
-  fallbackImage: "ezy_grill_sandwich_maker.webp",
-  tag: " ",
-  description: "Prepare delicious grilled sandwiches with this Sandwich Maker. Designed for quick and convenient cooking, it offers reliable performance for everyday snacks and meals.",
-  features: [
-    "Fast and efficient grilling performance",
-    "Non-stick cooking plates for easy food release and cleaning",
-    "Safe and convenient operation for everyday use",
-    "Compact design for easy storage",
-    "Simple controls with easy-to-read indicators",
-    "Reliable performance for daily meal preparation",
-    "Durable construction for long-lasting use"
-  ],
-  specs: {
-
-  }
-},
-{
-  id: "kitchen-36",
-  category: "Kitchen Appliances",
-  type: "Toaster",
-  name: "Toaster",
-  price: 5450,
-  mrp: 9490,
-  reviewsCount: "15 REVIEWS",
-  rating: 4.8,
-  image: "durachef_otg_23l.webp",
-  fallbackImage: "durachef_otg_23l.webp",
-  tag: " ",
-  description: "Prepare a variety of delicious meals with this Toaster. Designed for convenient everyday cooking, it offers reliable performance for baking, grilling, roasting, and toasting.",
-  features: [
-    "Efficient performance for everyday cooking tasks",
-    "Suitable for baking, grilling, roasting, and toasting",
-    "Adjustable cooking settings for versatile meal preparation",
-    "Even heating for consistent cooking results",
-    "Easy-to-use controls for convenient operation",
-    "Includes useful accessories for added convenience",
-    "Durable construction for long-lasting performance"
-  ],
-  specs: {
-
-  }
-},
-//home appliances
-{
-  id: "washing-plastic-7kg-sawm-maroon-white",
-  category: "Home Appliances",
-  type: "Washing Machine",
-  name: "Washing Machine",
-  price: 8490,
-  mrp: 16990,
-  reviewsCount: "14 REVIEWS",
-  rating: 4.7,
-  image: "plastic_7kg_sawm_maroon_white.webp",
-  fallbackImage: "plastic_7kg_sawm_maroon_white.webp",
-  tag: " ",
-  description: "Make laundry simple and convenient with this Washing Machine. Designed for efficient cleaning and reliable performance, it is ideal for everyday household laundry needs.",
-  features: [
-    "Efficient washing performance for everyday laundry",
-    "Multiple wash options for different fabric types",
-    "Powerful cleaning for effective stain removal",
-    "Convenient controls for easy operation",
-    "Durable construction for long-lasting use",
-    "Easy to move and position as needed",
-    "Reliable performance for daily household use"
-  ],
-  specs: {
-
-  }
-},
-{
-  id: "refrigerator-mist-175l-direct-cool",
-  category: "Home Appliances",
-  type: "Refrigerator",
-  name: "Refrigerator",
-  price: 13990,
-  mrp: 19990,
-  reviewsCount: "13 REVIEWS",
-  rating: 4.7,
-  image: "mist_175l_direct_cool.webp",
-  fallbackImage: "mist_175l_direct_cool.webp",
-  tag: " ",
-  description: "Keep your food fresh and organized with this Refrigerator. Designed for efficient cooling and everyday convenience, it offers reliable performance for modern households.",
-  features: [
-    "Efficient cooling performance for everyday food storage",
-    "Spacious interior for organized storage of groceries",
-    "Durable shelves for everyday use",
-    "Designed to help maintain freshness and hygiene",
-    "Reliable performance for daily household needs",
-    "Convenient storage solutions for fruits and vegetables",
-    "Built for long-lasting durability"
-  ],
-  specs: {
-
-  }
-},
-{
-  id: "ac-2ton-inverter-3star",
-  category: "Home Appliances",
-  type: "Air Conditioners",
-  name: "AIR CONDITIONER",
-  price: 54833,
-  mrp: 64990,
-  reviewsCount: "NO REVIEWS",
+const createTriplyProducts = (
+  name: string,
+  type: string,
+  image: string,
+  variants: TriplyVariant[],
+  includesLid = false
+): Product[] => variants.map(({ sku, size, dimension, caseLot }) => ({
+  id: `solara-${sku.toLowerCase()}-${size.toLowerCase().replace(/\s+/g, "-")}`,
+  category: "solara",
+  type,
+  name: `${name} (${size})`,
+  reviewsCount: "",
   rating: 0,
-  image: "crop_ac.webp",
-  fallbackImage: "crop_ac.webp",
-  tag: " ",
-  description: "Stay cool and comfortable with this Air Conditioner. Designed for efficient cooling and reliable performance, it provides a comfortable indoor environment for homes and offices.",
+  image: `solara/${image}`,
+  fallbackImage: `solara/${image}`,
+  tag: "SOLARA",
+  description: `${name}, made with triply stainless steel for everyday cooking.${includesLid ? " Includes a stainless steel lid." : ""}`,
   features: [
-    "Powerful cooling performance for everyday comfort",
-    "Energy-efficient operation for regular use",
-    "Uniform airflow for enhanced cooling experience",
-    "Durable construction for long-lasting performance",
-    "Designed to deliver clean and fresh airflow",
-    "Easy-to-use controls for convenient operation",
-    "Reliable performance for homes and workspaces"
+    "Triply stainless steel construction",
+    ...(includesLid ? ["Includes stainless steel lid"] : [])
   ],
   specs: {
+    Size: size,
+    ...(dimension ? { "Dimension (mm)": dimension } : {}),
+    ...(caseLot ? { "Case lot": caseLot } : {})
+  },
+  sku
+}));
 
-  }
-},
-//steamers
-{
-  id: "iron-fabrica-1200w-garment-steamer",
-  category: "Steamers",
-  type: "Garment Steamer",
-  name: "Garment Steamer",
-  price: 2750,
-  mrp: 5390,
-  reviewsCount: "25 REVIEWS",
-  rating: 4.8,
-  image: "fabrica_1200w_garment_steamer.webp",
-  fallbackImage: "fabrica_1200w_garment_steamer.webp",
-  tag: " ",
-  description: "Keep your clothes fresh and wrinkle-free with this Garment Steamer. Designed for quick and convenient garment care, it delivers reliable performance for everyday use at home or while traveling.",
+interface DrinkwareVariant {
+  sku: string;
+  color: string;
+  image: string;
+}
+
+const createDrinkwareProducts = (
+  capacity: "650ml" | "1000ml",
+  variants: DrinkwareVariant[],
+  price: number,
+  mrp?: number
+): Product[] => variants.map(({ sku, color, image }) => ({
+  id: `solara-${sku.toLowerCase()}-${capacity.toLowerCase()}`,
+  category: "solara",
+  type: "Drinkware",
+  name: `SOLARA Hydration Bottle - ${color} (${capacity})`,
+  price,
+  ...(mrp === undefined ? {} : { mrp }),
+  reviewsCount: "",
+  rating: 0,
+  image: `solara/${image}`,
+  fallbackImage: `solara/${image}`,
+  tag: "SOLARA",
+  description: "SOLARA Drinkware - Hydration Meets Premium Design.",
   features: [
-    "Efficient steaming for smooth and wrinkle-free garments",
-    "Quick heat-up for convenient everyday use",
-    "Easy-to-refill water tank for uninterrupted steaming",
-    "Even steam distribution for effective garment care",
-    "Suitable for both vertical and horizontal steaming",
-    "Compact and portable design for easy storage and travel",
-    "Reliable performance for everyday garment care"
+    "Keeps drinks cold for 12 hours",
+    "Keeps drinks hot for 8 hours",
+    "18/8 food-grade stainless steel",
+    "Leak-proof and sweat-free design",
+    "Double-wall vacuum insulation"
   ],
-  specs: {
+  specs: { Capacity: capacity, Color: color },
+  sku
+}));
 
-  }
-},
-{
-  id: "iron-bigsole-plastic-dry-1000w",
-  category: "Steamers",
-  type: "Iron",
-  name: "Iron",
-  price: 700,
-  mrp: 1290,
-  reviewsCount: "15 REVIEWS",
-  rating: 4.8,
-  image: "bigsole_plastic_dry_iron_1000w.webp",
-  fallbackImage: "bigsole_plastic_dry_iron_1000w.webp",
-  tag: " ",
-  description: "Keep your clothes neat and wrinkle-free with this Iron. Designed for smooth and efficient ironing, it delivers reliable performance for everyday garment care.",
-  features: [
-    "Fast and efficient ironing performance",
-    "Smooth soleplate for effortless gliding across fabrics",
-    "Adjustable temperature settings for different fabric types",
-    "Enhanced safety features for reliable operation",
-    "Comfortable and easy-to-use ergonomic design",
-    "Flexible cord for convenient movement during use",
-    "Durable construction for long-lasting performance"
-  ],
-  specs: {
+interface SolaraVariant {
+  sku?: string;
+  label?: string;
+  image: string;
+  specs?: Record<string, string>;
+}
 
-  }
-},
-//Heaters
-{
-  id: "water-heater-star-lux-1500w",
-  category: "Water Heaters",
-  type: "Immersion Rod",
-  name: "Immersion Rod",
-  price: 545,
-  mrp: 1090,
-  reviewsCount: "13 REVIEWS",
-  rating: 4.6,
-  image: "star_lux_immersion_rod.webp",
-  fallbackImage: "star_lux_immersion_rod.webp",
-  tag: " ",
-  description: "Heat water quickly and conveniently with this Immersion Rod. Designed for safe and reliable everyday use, it provides efficient water heating for various household needs.",
-  features: [
-    "Fast and efficient water heating performance",
-    "Durable construction for long-lasting use",
-    "Safe and reliable operation for everyday use",
-    "Easy-to-use design for added convenience",
-    "Compact and lightweight for easy handling and storage",
-    "Enhanced safety features for dependable performance",
-    "Ideal for a variety of household water heating needs"
-  ],
-  specs: {
+const createSolaraVariants = (
+  productName: string,
+  type: string,
+  description: string,
+  features: string[],
+  variants: SolaraVariant[]
+): Product[] => variants.map(({ sku, label, image, specs }) => ({
+  id: `solara-${(sku ?? `${productName}-${label ?? "standard"}`).toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+  category: "solara",
+  type,
+  name: label ? `${productName} - ${label}` : productName,
+  reviewsCount: "",
+  rating: 0,
+  image: `solara/${image}`,
+  fallbackImage: `solara/${image}`,
+  tag: "SOLARA",
+  description,
+  features,
+  specs: specs ?? {},
+  ...(sku ? { sku } : {})
+}));
 
-  }
-},
-{
-  id: "heater-ferno-9-oil-filled-radiator",
-  category: "Water Heaters",
-  type: "Room Heaters",
-  name: "Room Heater",
-  price: 8490,
-  mrp: 14990,
-  reviewsCount: "11 REVIEWS",
-  rating: 4.8,
-  image: "ferno_9_oil_filled_radiator.webp",
-  fallbackImage: "ferno_9_oil_filled_radiator.webp",
-  tag: " ",
-  description: "Stay warm and comfortable with this Room Heater. Designed to provide efficient and reliable heating, it is ideal for creating a cozy indoor environment during colder days.",
-  features: [
-    "Efficient heating performance for everyday comfort",
-    "Adjustable heating settings for personalized warmth",
-    "Uniform heat distribution across the room",
-    "Easy to move and position as needed",
-    "Enhanced safety features for reliable operation",
-    "Convenient design for everyday use",
-    "Durable construction for long-lasting performance"
-  ],
-  specs: {
+const INSULATED_BOTTLE_FEATURES = [
+  "Keeps drinks cold for 12 hours",
+  "Keeps drinks hot for 8 hours",
+  "18/8 food-grade stainless steel",
+  "Leak-proof and sweat-free design",
+  "Double-wall vacuum insulation"
+];
 
-  }
-},
+export const PRODUCTS: Product[] = [
+  {
+    id: "solara-large-digital-air-fryer-oven-12l",
+    category: "solara",
+    type: "Air Fryers",
+    name: "SOLARA Large Digital Air Fryer Oven (12L Capacity)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/SOLARA Large Digital Air Fryer Oven.png",
+    fallbackImage: "solara/SOLARA Large Digital Air Fryer Oven.png",
+    tag: "SOLARA",
+    description: "SOLARA Large Digital Air Fryer Oven with 12L capacity.",
+    features: [
+      "12 preset cooking menus with LED touch screen",
+      "360-degree hot air circulation for 100% oil-free cooking",
+      "Multiple accessories: Crisper Wire Basket, Enamelled Tray, Rotisserie Basket, Wire Grill Rack, Tongs & Rotisserie Rod",
+      "Energy-efficient operation with auto shut-off"
+    ],
+    specs: { Capacity: "12L" },
+    sku: "SOL-AF-501",
+    subtitle: "12L Capacity"
+  },
+  {
+    id: "solara-digital-air-fryer-4-5l",
+    category: "solara",
+    type: "Air Fryers",
+    name: "SOLARA Digital Air Fryer (4.5L)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/SOLARA Digital Air Fryer.png",
+    fallbackImage: "solara/SOLARA Digital Air Fryer.png",
+    tag: "SOLARA",
+    description: "SOLARA Digital Air Fryer with a 4.5L capacity and see-through window.",
+    features: [
+      "See-through window to monitor cooking progress",
+      "10+1 preset cooking menus for Indian favorites",
+      "1500W power with 360-degree high-speed air circulation",
+      "Uses up to 90% less fat than traditional frying",
+      "100% PFAS-free certified by independent laboratory"
+    ],
+    specs: { Capacity: "4.5L", Power: "1500W" },
+    sku: "SOL-AF-124",
+    subtitle: "4.5L with See-Through Window"
+  },
+  {
+    id: "solara-cold-press-juicer-150w",
+    category: "solara",
+    type: "Cold Press Juicers",
+    name: "SOLARA Cold Press Juicer (150W)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/SOLARA Cold Press Juicer.jpg",
+    fallbackImage: "solara/SOLARA Cold Press Juicer.jpg",
+    tag: "SOLARA",
+    description: "Extract every drop of goodness with the SOLARA Cold Press Juicer.",
+    features: [
+      "7-segment spiral masticating system for maximum juice extraction",
+      "Slow 52 RPM operation preserves nutrients and enzymes",
+      "2-speed settings for different fruits and vegetables",
+      "Reverse function to reduce clogging and food residues",
+      "One-touch assembly design for easy disassembly and cleaning",
+      "Dishwasher-safe parts for simplified maintenance"
+    ],
+    specs: { Power: "150W" },
+    sku: "SOL-JUC-121",
+    subtitle: "150W Masticating Juicer"
+  },
+  {
+    id: "solara-blendkwik-pro-portable-blender-450ml",
+    category: "solara",
+    type: "Portable Blenders",
+    name: "SOLARA BlendKwik Pro Portable Blender (450ml)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/SOLARA BlendKwik Pro.jpg",
+    fallbackImage: "solara/SOLARA BlendKwik Pro.jpg",
+    tag: "SOLARA",
+    description: "Blend and sip on the go with the rechargeable SOLARA BlendKwik Pro Portable Blender.",
+    features: [
+      "180W motor with BlendKwik technology - blends in 20 seconds",
+      "450ml capacity - perfect single-serve portions",
+      "15+ blends per charge with water-resistant USB-C port",
+      "Crushes ice, frozen fruits, and greens effortlessly",
+      "Blend & Sip seamlessly - drink straight from the jar",
+      "Self-cleaning: add water, soap, blend, rinse - done"
+    ],
+    specs: { Power: "180W", Capacity: "450ml", Charging: "USB-C" },
+    sku: "SOL-BLN-400",
+    subtitle: "Portable Blender - Rechargeable, 450ml"
+  },
+  {
+    id: "solara-cast-iron-double-handle-tawa-12-inch-super-smooth",
+    category: "solara",
+    type: "Cast Iron Cookware",
+    name: "SOLARA Cast Iron Double Handle Tawa (12 inch, Super Smooth)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/SOLARA CAST IRON DOUBLE HANDLE TAWA.webp",
+    fallbackImage: "solara/SOLARA CAST IRON DOUBLE HANDLE TAWA.webp",
+    tag: "SOLARA",
+    description: "Flat cast iron tawa for perfect dosas, rotis, parathas, and uttapams. The heavy base ensures even heat spread for golden, crispy results every time.",
+    features: ["Super smooth cooking surface", "Double handle design", "Flat cast iron base for even heat spread"],
+    specs: { Size: "12 inch" },
+    sku: "SOL-CI-DT-301"
+  },
+  {
+    id: "solara-cast-iron-double-handle-tawa-12-inch",
+    category: "solara",
+    type: "Cast Iron Cookware",
+    name: "SOLARA Cast Iron Double Handle Tawa (12 inch)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/SOLARA CAST IRON DOUBLE HANDLE TAWA.webp",
+    fallbackImage: "solara/SOLARA CAST IRON DOUBLE HANDLE TAWA.webp",
+    tag: "SOLARA",
+    description: "Flat cast iron tawa for perfect dosas, rotis, parathas, and uttapams. The heavy base ensures even heat spread for golden, crispy results every time.",
+    features: ["Double handle design", "Flat cast iron base for even heat spread"],
+    specs: { Size: "12 inch" },
+    sku: "SOL-CI-DT-302"
+  },
+  {
+    id: "solara-cast-iron-tawa-pre-seasoned-11-inch",
+    category: "solara",
+    type: "Cast Iron Cookware",
+    name: "SOLARA Cast Iron Tawa with Handle (Pre Seasoned, 11 inch)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/CAST IRON TAWA WITH HANDLE (PRE SEASONED)'.webp",
+    fallbackImage: "solara/CAST IRON TAWA WITH HANDLE (PRE SEASONED)'.webp",
+    tag: "SOLARA",
+    description: "Flat cast iron tawa for perfect dosas, rotis, parathas, and uttapams. The heavy base ensures even heat spread for golden, crispy results every time.",
+    features: ["Pre-seasoned cooking surface", "Handle design", "Flat cast iron base for even heat spread"],
+    specs: { Size: "11 inch" },
+    sku: "SOL-CI-DT-307"
+  },
+  {
+    id: "solara-cast-iron-dosa-tawa-round-grinding-11-inch-super-smooth",
+    category: "solara",
+    type: "Cast Iron Cookware",
+    name: "SOLARA Cast Iron Dosa Tawa Round with Grinding (11 inch, Super Smooth)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/CAST IRON DOSA TAWA ROUND (WITH GRINDING).webp",
+    fallbackImage: "solara/CAST IRON DOSA TAWA ROUND (WITH GRINDING).webp",
+    tag: "SOLARA",
+    description: "Flat cast iron tawa for perfect dosas, rotis, parathas, and uttapams. The heavy base ensures even heat spread for golden, crispy results every time.",
+    features: ["Round dosa tawa with grinding", "Super smooth cooking surface", "Flat cast iron base for even heat spread"],
+    specs: { Size: "11 inch" },
+    sku: "SOL-CI-DT-304"
+  },
+  {
+    id: "solara-cast-iron-long-handle-tawa-10-inch",
+    category: "solara",
+    type: "Cast Iron Cookware",
+    name: "SOLARA Cast Iron Handle Tawa - Long Handle (Shallow Pan, 10 inch)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/CAST IRON HANDLE TAWA — LONG HANDLE (SHALLOW PAN).jpg",
+    fallbackImage: "solara/CAST IRON HANDLE TAWA — LONG HANDLE (SHALLOW PAN).jpg",
+    tag: "SOLARA",
+    description: "Flat cast iron tawa for perfect dosas, rotis, parathas, and uttapams. The heavy base ensures even heat spread for golden, crispy results every time.",
+    features: ["Long handle design", "Shallow pan profile", "Flat cast iron base for even heat spread"],
+    specs: { Size: "10 inch" },
+    sku: "SOL-CI-DT-305"
+  },
+  {
+    id: "solara-cast-iron-fish-fry-pan-10-inch",
+    category: "solara",
+    type: "Fish Fry Pans",
+    name: "SOLARA Cast Iron Fish Fry Pan (10 inch)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/CAST IRON FISH FRY PAN.jpg",
+    fallbackImage: "solara/CAST IRON FISH FRY PAN.jpg",
+    tag: "SOLARA",
+    description: "A sturdy cast iron fish fry pan designed for even heating and reliable frying.",
+    features: ["Heavy-duty cast iron construction", "Even heat distribution"],
+    specs: { Size: "10 inch" },
+    sku: "SOL-CI-FP-301"
+  },
+  {
+    id: "solara-kadai-smooth-finish-8-inch",
+    category: "solara",
+    type: "Kadhai",
+    name: "SOLARA Kadai - Smooth Finish (8 inch, Super Smooth)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/KADAI — SMOOTH FINISH.avif",
+    fallbackImage: "solara/KADAI — SMOOTH FINISH.avif",
+    tag: "SOLARA",
+    description: "A smooth-finish cast iron kadai with a durable body for everyday cooking.",
+    features: ["Super smooth finish", "Heavy-duty cast iron construction"],
+    specs: { Size: "8 inch" },
+    sku: "SOL-CI-KD-303"
+  },
+  {
+    id: "solara-kadai-smooth-finish-10-inch",
+    category: "solara",
+    type: "Kadhai",
+    name: "SOLARA Kadai - Smooth Finish (10 inch, Super Smooth)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/KADAI — SMOOTH FINISH.avif",
+    fallbackImage: "solara/KADAI — SMOOTH FINISH.avif",
+    tag: "SOLARA",
+    description: "A smooth-finish cast iron kadai with a durable body for everyday cooking.",
+    features: ["Super smooth finish", "Heavy-duty cast iron construction"],
+    specs: { Size: "10 inch" },
+    sku: "SOL-CI-KD-304"
+  },
+  {
+    id: "solara-cast-iron-appam-pan-22-cm",
+    category: "solara",
+    type: "Appam Pans",
+    name: "SOLARA Cast Iron Appam Pan (22 cm, Super Smooth)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/CAST IRON APPAM PAN SUPER SMOOTH.webp",
+    fallbackImage: "solara/CAST IRON APPAM PAN SUPER SMOOTH.webp",
+    tag: "SOLARA",
+    description: "A super smooth cast iron appam pan for even cooking and consistent results.",
+    features: ["Super smooth cooking surface", "Heavy-duty cast iron construction"],
+    specs: { Size: "22 cm" },
+    sku: "SOL-CI-AP-301"
+  },
+  {
+    id: "solara-cast-iron-paniyaram-pan-9-pit",
+    category: "solara",
+    type: "Paniyaram Pans",
+    name: "SOLARA Cast Iron Paniyaram Pan (9 Pit)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/CAST IRON PANIYARAM PAN.webp",
+    fallbackImage: "solara/CAST IRON PANIYARAM PAN.webp",
+    tag: "SOLARA",
+    description: "A cast iron paniyaram pan for preparing evenly cooked paniyaram at home.",
+    features: ["Cast iron construction", "9-pit cooking surface"],
+    specs: { Size: "9 Pit" },
+    sku: "SOL-CI-PNY-303"
+  },
+  {
+    id: "solara-cast-iron-paniyaram-pan-12-pit",
+    category: "solara",
+    type: "Paniyaram Pans",
+    name: "SOLARA Cast Iron Paniyaram Pan (12 Pit)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/CAST IRON PANIYARAM PAN.webp",
+    fallbackImage: "solara/CAST IRON PANIYARAM PAN.webp",
+    tag: "SOLARA",
+    description: "A cast iron paniyaram pan for preparing evenly cooked paniyaram at home.",
+    features: ["Cast iron construction", "12-pit cooking surface"],
+    specs: { Size: "12 Pit" },
+    sku: "SOL-CI-PNY-301"
+  },
+  {
+    id: "solara-crownstone-double-handle-tawa-12-inch",
+    category: "solara",
+    type: "Cast Iron Cookware",
+    name: "SOLARA Crownstone Cast Iron Double Handle Tawa (12 inch)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/SOLARA CAST IRON DOUBLE HANDLE TAWA.webp",
+    fallbackImage: "solara/SOLARA CAST IRON DOUBLE HANDLE TAWA.webp",
+    tag: "SOLARA",
+    description: "A Crownstone cast iron tawa with a sturdy double-handle design, made for dependable everyday cooking.",
+    features: ["Pre-seasoned and ready to cook", "Heavy-duty construction", "Gas compatible"],
+    specs: { Size: "12 inch" },
+    sku: "SOL-CI-DT-306"
+  },
+  {
+    id: "solara-crownstone-single-handle-tawa-12-inch",
+    category: "solara",
+    type: "Cast Iron Cookware",
+    name: "SOLARA Crownstone Cast Iron Tawa with Single Handle (12 inch)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/CAST IRON TAWA WITH HANDLE (PRE SEASONED)'.webp",
+    fallbackImage: "solara/CAST IRON TAWA WITH HANDLE (PRE SEASONED)'.webp",
+    tag: "SOLARA",
+    description: "A Crownstone cast iron tawa with a single handle for dependable everyday cooking.",
+    features: ["Pre-seasoned and ready to cook", "Heavy-duty construction", "Gas compatible"],
+    specs: { Size: "12 inch" },
+    sku: "SOL-CI-DT-303"
+  },
+  {
+    id: "solara-crownstone-fry-pan-8-inch",
+    category: "solara",
+    type: "Cast Iron Fry Pans",
+    name: "SOLARA Crownstone Cast Iron Fry Pan (8 inch)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/SOL-CI-FP-302.webp",
+    fallbackImage: "solara/SOL-CI-FP-302.webp",
+    tag: "SOLARA",
+    description: "A durable Crownstone cast iron fry pan for even heating and everyday frying.",
+    features: ["Heavy-duty cast iron construction", "Even heat distribution"],
+    specs: { Size: "8 inch" },
+    sku: "SOL-CI-FP-302"
+  },
+  {
+    id: "solara-crownstone-fry-pan-10-inch",
+    category: "solara",
+    type: "Cast Iron Fry Pans",
+    name: "SOLARA Crownstone Cast Iron Fry Pan (10 inch)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/SOL-CI-FP-302.webp",
+    fallbackImage: "solara/SOL-CI-FP-302.webp",
+    tag: "SOLARA",
+    description: "A durable Crownstone cast iron fry pan for even heating and everyday frying.",
+    features: ["Heavy-duty cast iron construction", "Even heat distribution"],
+    specs: { Size: "10 inch" },
+    sku: "SOL-CI-FP-303"
+  },
+  {
+    id: "solara-crownstone-fry-pan-12-inch",
+    category: "solara",
+    type: "Cast Iron Fry Pans",
+    name: "SOLARA Crownstone Cast Iron Fry Pan (12 inch)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/SOL-CI-FP-302.webp",
+    fallbackImage: "solara/SOL-CI-FP-302.webp",
+    tag: "SOLARA",
+    description: "A durable Crownstone cast iron fry pan for even heating and everyday frying.",
+    features: ["Heavy-duty cast iron construction", "Even heat distribution"],
+    specs: { Size: "12 inch" },
+    sku: "SOL-CI-FP-304"
+  },
+  {
+    id: "solara-cast-iron-deep-kadai-12-inch",
+    category: "solara",
+    type: "Kadhai",
+    name: "SOLARA Cast Iron Deep Kadai (12 inch)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/KADAI — SMOOTH FINISH.avif",
+    fallbackImage: "solara/KADAI — SMOOTH FINISH.avif",
+    tag: "SOLARA",
+    description: "A deep cast iron kadai with a sturdy body for versatile everyday cooking.",
+    features: ["Deep cast iron cooking vessel", "Heavy-duty construction"],
+    specs: { Size: "12 inch" },
+    sku: "SOL-CI-KD-301"
+  },
+  {
+    id: "solara-cast-iron-deep-kadai-10-inch",
+    category: "solara",
+    type: "Kadhai",
+    name: "SOLARA Cast Iron Deep Kadai (10 inch)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/KADAI — SMOOTH FINISH.avif",
+    fallbackImage: "solara/KADAI — SMOOTH FINISH.avif",
+    tag: "SOLARA",
+    description: "A deep cast iron kadai with a sturdy body for versatile everyday cooking.",
+    features: ["Deep cast iron cooking vessel", "Heavy-duty construction"],
+    specs: { Size: "10 inch" },
+    sku: "SOL-CI-KD-302"
+  },
+  {
+    id: "solara-cast-iron-4-pit-pan-4-pit",
+    category: "solara",
+    type: "Paniyaram Pans",
+    name: "SOLARA Cast Iron 4 Pit Pan (4 Pit)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/CAST IRON 4 PIT PAN.webp",
+    fallbackImage: "solara/CAST IRON 4 PIT PAN.webp",
+    tag: "SOLARA",
+    description: "A cast iron four-pit pan for cooking multiple portions at once.",
+    features: ["Cast iron construction", "4-pit cooking surface"],
+    specs: { Size: "4 Pit" },
+    sku: "SOL-CI-PNY-305"
+  },
+  ...createTriplyProducts("SOLARA Triply SS Kadai with SS Lid", "Triply Kadhai", "TRIPLY SS KADAI WITH SS LID.jpg", [
+    { sku: "SOL-TSKD-306", size: "18 cm", dimension: "180", caseLot: "4" },
+    { sku: "SOL-TSKD-301", size: "20 cm", dimension: "200", caseLot: "4" },
+    { sku: "SOL-TSKD-302", size: "22 cm", dimension: "220", caseLot: "4" },
+    { sku: "SOL-TSKD-303", size: "24 cm", dimension: "240", caseLot: "4" },
+    { sku: "SOL-TSKD-304", size: "26 cm", dimension: "260", caseLot: "4" },
+    { sku: "SOL-TSKD-305", size: "28 cm", dimension: "280", caseLot: "4" },
+    { sku: "SOL-TSKD-307", size: "30 cm", dimension: "300", caseLot: "4" }
+  ], true),
+  ...createTriplyProducts("SOLARA Triply SS Deep Kadai with SS Lid", "Triply Kadhai", "TRIPLY SS DEEP KADAI WITH SS LID.webp", [
+    { sku: "SOL-TSDKD-301", size: "20 cm", dimension: "200", caseLot: "4" },
+    { sku: "SOL-TSDKD-302", size: "22 cm", dimension: "220", caseLot: "4" },
+    { sku: "SOL-TSDKD-303", size: "24 cm", dimension: "240", caseLot: "4" },
+    { sku: "SOL-TSDKD-304", size: "26 cm", dimension: "260", caseLot: "4" },
+    { sku: "SOL-TSDKD-305", size: "28 cm", dimension: "280", caseLot: "4" }
+  ], true),
+  ...createTriplyProducts("SOLARA Triply SS Frypan", "Triply Frypans", "TRIPLY SS FRYPAN.webp", [
+    { sku: "SOL-TSFP-304", size: "18 cm", dimension: "180", caseLot: "4" },
+    { sku: "SOL-TSFP-301", size: "20 cm", dimension: "200", caseLot: "4" },
+    { sku: "SOL-TSFP-302", size: "22 cm", dimension: "220", caseLot: "4" },
+    { sku: "SOL-TSFP-303", size: "24 cm", dimension: "240", caseLot: "4" }
+  ]),
+  ...createTriplyProducts("SOLARA Triply Tall Casserole with SS Lid", "Triply Casseroles", "TRIPLY TALL CASSEROLE WITH SS LID.jpg", [
+    { sku: "SOL-TSTC-305", size: "20 cm", dimension: "200", caseLot: "4" },
+    { sku: "SOL-TSTC-302", size: "24 cm", dimension: "240", caseLot: "4" },
+    { sku: "SOL-TSTC-303", size: "28 cm", dimension: "280", caseLot: "4" },
+    { sku: "SOL-TSTC-304", size: "32 cm", dimension: "320", caseLot: "4" }
+  ], true),
+  ...createTriplyProducts("SOLARA Triply Short Casserole with SS Lid (Cast Handle)", "Triply Casseroles", "TRIPLY SHORT CASSEROLE WITH SS LID (CAST HANDLE).jpg", [
+    { sku: "SOL-TSSC-301", size: "24 cm", dimension: "240", caseLot: "4" },
+    { sku: "SOL-TSSC-302", size: "28 cm", dimension: "280", caseLot: "4" },
+    { sku: "SOL-TSSC-303", size: "32 cm", dimension: "320", caseLot: "4" }
+  ], true),
+  ...createTriplyProducts("SOLARA Triply Handi Casserole with SS Lid", "Triply Casseroles", "TRIPLY HANDI CASSEROLE WITH SS LID.jpg", [
+    { sku: "SOL-TSHD-301", size: "20 cm", dimension: "200", caseLot: "4" },
+    { sku: "SOL-TSHD-302", size: "22 cm", dimension: "220", caseLot: "4" },
+    { sku: "SOL-TSHD-303", size: "24 cm", dimension: "240", caseLot: "4" }
+  ], true),
+  ...createTriplyProducts("SOLARA Triply Uruli with SS Lid (SS Handle)", "Triply Cookware", "TRIPLY URULI WITH SS LID (SS HANDLE).webp", [
+    { sku: "SOL-TSUR-301", size: "24 cm", dimension: "240", caseLot: "4" },
+    { sku: "SOL-TSUR-302", size: "28 cm", dimension: "280", caseLot: "4" },
+    { sku: "SOL-TSUR-303", size: "32 cm", dimension: "320", caseLot: "4" }
+  ], true),
+  ...createTriplyProducts("SOLARA Triply Pressure Cooker with Lid", "Pressure Cookers", "TRIPLY PRESSURE COOKER WITH LID.webp", [
+    { sku: "SOL-TSPC-301", size: "2 L", caseLot: "4" },
+    { sku: "SOL-TSPC-302", size: "3 L", caseLot: "4" },
+    { sku: "SOL-TSPC-303", size: "5 L", caseLot: "4" }
+  ], true),
+  ...createTriplyProducts("SOLARA Triply Pressure Pan with Lid", "Pressure Cookers", "TRIPLY PRESSURE PAN WITH LID.jpg", [
+    { sku: "SOL-TSPP-303", size: "2 L", caseLot: "4" },
+    { sku: "SOL-TSPP-304", size: "3 L", caseLot: "4" }
+  ], true),
+  ...createDrinkwareProducts("650ml", [
+    { sku: "SOL-INS-WB-601", color: "Black Knight", image: "SOL-INS-WB-601Black Knight.png" },
+    { sku: "SOL-INS-WB-602", color: "Angle Pink", image: "SOL-INS-WB-602 Angle pink.png" },
+    { sku: "SOL-INS-WB-603", color: "Aqua", image: "SOL-INS-WB-603 Aqua.png" },
+    { sku: "SOL-INS-WB-604", color: "Pink Teal", image: "SOL-INS-WB-604 Pink Teal.png" },
+    { sku: "SOL-INS-WB-607", color: "Black Marble", image: "SOL-INS-WB-607 Black Marble.png" },
+    { sku: "SOL-INS-WB-605", color: "Blue Wave", image: "SOL-INS-WB-605 Blue Wave.png" },
+    { sku: "SOL-INS-WB-606", color: "Dark Intension", image: "SOL-INS-WB-606 Dark intension.png" }
+  ], 1500),
+  ...createDrinkwareProducts("1000ml", [
+    { sku: "SOL-INS-WB-621", color: "Black Knight", image: "SOL-INS-WB-621 Black Knight.png" },
+    { sku: "SOL-INS-WB-622", color: "Lime Green", image: "SOL-INS-WB-622 Lime Green.png" },
+    { sku: "SOL-INS-WB-623", color: "Pink Teal", image: "SOL-INS-WB-623 Pink Teal.png" },
+    { sku: "SOL-INS-WB-624", color: "Dark Intension", image: "SOL-INS-WB-624 Dark intension.png" },
+    { sku: "SOL-INS-WB-627", color: "Black Marble", image: "SOL-INS-WB-627 Black Marble.png" },
+    { sku: "SOL-INS-WB-625", color: "Angle Pink", image: "SOL-INS-WB-625 Angle pink.png" },
+    { sku: "SOL-INS-WB-626", color: "Blue Wave", image: "SOL-INS-WB-626 Blue Wave.png" }
+  ], 1999, 2199),
+  ...createSolaraVariants(
+    "SOLARA Hydration Bottle (2000ml)",
+    "Drinkware",
+    "SOLARA premium insulated hydration bottle with double-wall vacuum insulation.",
+    INSULATED_BOTTLE_FEATURES,
+    [
+      { sku: "SOL-INS-WB-641", label: "Pink Teal", image: "SOL-INS-WB-641 Pink Teal.png", specs: { Capacity: "2000ml", Color: "Pink Teal" } },
+      { sku: "SOL-INS-WB-642", label: "Black Knight", image: "SOL-INS-WB-642 Black Knight.png", specs: { Capacity: "2000ml", Color: "Black Knight" } },
+      { sku: "SOL-INS-WB-644", label: "Dark Intension", image: "SOL-INS-WB-644 Dark intension.png", specs: { Capacity: "2000ml", Color: "Dark Intension" } },
+      { sku: "SOL-INS-WB-643", label: "Blue Wave", image: "SOL-INS-WB-643 Blue Wave.png", specs: { Capacity: "2000ml", Color: "Blue Wave" } }
+    ]
+  ),
+  ...createSolaraVariants(
+    "SOLARA Kids Insulated Bottle (450ml)",
+    "Kids Bottles",
+    "A kid-friendly insulated stainless-steel bottle for school and everyday adventures.",
+    INSULATED_BOTTLE_FEATURES,
+    [
+      { sku: "SOL-INS-WB-681", label: "Unicorn", image: "SOL-INS-WB-681Unicorn.png", specs: { Capacity: "450ml", Design: "Unicorn" } },
+      { sku: "SOL-INS-WB-682", label: "Mermaid", image: "SOL-INS-WB-682 Mermaid.png", specs: { Capacity: "450ml", Design: "Mermaid" } },
+      { sku: "SOL-INS-WB-683", label: "Rainbow", image: "SOL-INS-WB-683 Rainbow.png", specs: { Capacity: "450ml", Design: "Rainbow" } },
+      { sku: "SOL-INS-WB-684", label: "Dino", image: "SOL-INS-WB-684 Dino.png", specs: { Capacity: "450ml", Design: "Dino" } },
+      { sku: "SOL-INS-WB-687", label: "Galaxy", image: "SOL-INS-WB-687 Galaxy.png", specs: { Capacity: "450ml", Design: "Galaxy" } },
+      { sku: "SOL-INS-WB-685", label: "Fruit", image: "SOL-INS-WB-685 Fruit.png", specs: { Capacity: "450ml", Design: "Fruit" } },
+      { sku: "SOL-INS-WB-688", label: "Animal Heroes", image: "SOL-INS-WB-688 Animal heros.png", specs: { Capacity: "450ml", Design: "Animal Heroes" } },
+      { sku: "SOL-INS-WB-686", label: "Fish", image: "SOL-INS-WB-686 Fish.png", specs: { Capacity: "450ml", Design: "Fish" } },
+      { sku: "SOL-INS-WB-689", label: "Construction", image: "SOL-INS-WB-689 Construction.png", specs: { Capacity: "450ml", Design: "Construction" } }
+    ]
+  ),
+  ...createSolaraVariants(
+    "SOLARA Amazi Kids Lunch Box",
+    "Kids Lunch Boxes",
+    "A lightweight, kid-friendly meal organizer designed for easy everyday packing.",
+    [
+      "3-section stainless-steel meal organizer",
+      "Four clasps for leak-resistant packing",
+      "Lightweight and kid-friendly design",
+      "Dishwasher safe"
+    ],
+    [
+      { sku: "SOL-SLB-201", label: "Unicorn", image: "SOL-SLB-201 Unicorn.png", specs: { Sections: "3", Design: "Unicorn" } },
+      { sku: "SOL-SLB-202", label: "Dino", image: "SOL-SLB-202 Dino.png", specs: { Sections: "3", Design: "Dino" } },
+      { sku: "SOL-SLB-203", label: "Galaxy", image: "SOL-SLB-203 Galaxy.png", specs: { Sections: "3", Design: "Galaxy" } }
+    ]
+  ),
+  ...createSolaraVariants(
+    "SOLARA Echo Insulated Tumbler (1.2L)",
+    "Tumblers",
+    "A large-capacity insulated tumbler designed for convenient carrying and daily hydration.",
+    ["1.2L large capacity", "Ergonomic easy-carry handle", "Base fits car cup holders", "Leak-proof BPA-free lid"],
+    [
+      { sku: "SOL-INS-TUM-253", label: "Blue Hawaii", image: "SOL-INS-TUM-253 Blue Hawai.png", specs: { Capacity: "1.2L", Color: "Blue Hawaii" } },
+      { sku: "SOL-INS-TUM-252t", label: "Moroccan Blue", image: "SOL-INS-TUM-252t Moroccan Blue.png", specs: { Capacity: "1.2L", Color: "Moroccan Blue" } },
+      { sku: "SOL-INS-TUM-251", label: "Black Knight", image: "SOL-INS-TUM-251 Black Knight.png", specs: { Capacity: "1.2L", Color: "Black Knight" } }
+    ]
+  ),
+  ...createSolaraVariants(
+    "SOLARA Glass Tumbler with Bamboo Lid (500ml)",
+    "Tumblers",
+    "A reusable 500ml glass tumbler with a bamboo lid and reusable straws.",
+    ["Spill-resistant bamboo lid", "Dishwasher safe", "Reusable straws included", "BPA-free"],
+    [
+      { label: "Blue Hawaii", image: "SOL-GLSTUM-601 Blue Hawaii.png", specs: { Capacity: "500ml", Color: "Blue Hawaii" } }
+    ]
+  ),
+  ...createSolaraVariants(
+    "SOLARA Stainless Steel Water Bottle",
+    "Drinkware",
+    "A reusable stainless-steel water bottle designed for safe everyday hydration.",
+    ["Wide mouth for easy filling and cleaning", "18/8 food-grade stainless steel", "Leak-proof lock system", "BPA-free for everyday use"],
+    [
+      { sku: "SOL-SS-WB-602", label: "Black Knight", image: "SOL-SS-WB-602 Black Knight.png", specs: { Color: "Black Knight" } },
+      { sku: "SOL-SS-WB-603", label: "Dark Intentions", image: "SOL-SS-WB-603 Dark Intentions.png", specs: { Color: "Dark Intentions" } },
+      { sku: "SOL-SS-WB-601", label: "Dark Blue", image: "SOL-SS-WB-601 Dark Blue.png", specs: { Color: "Dark Blue" } }
+    ]
+  ),
+  ...createSolaraVariants(
+    "SOLARA Cola Stainless Steel Bottle (500ml)",
+    "Drinkware",
+    "A SOLARA Cola stainless-steel bottle for everyday hydration.",
+    ["Stainless-steel bottle"],
+    [
+      { sku: "SOL-INS-WB-651", label: "Steel", image: "SOLARA COLA 500 ml Stainless Steel Bottle.jpg", specs: { Capacity: "500ml", Color: "Steel" } },
+      { sku: "SOL-INS-WB-652", label: "Green", image: "SOLARA COLA 500 ml Stainless Steel Bottle.jpg", specs: { Capacity: "500ml", Color: "Green" } },
+      { sku: "SOL-INS-WB-653", label: "Black", image: "SOLARA COLA 500 ml Stainless Steel Bottle.jpg", specs: { Capacity: "500ml", Color: "Black" } }
+    ]
+  ),
+  ...createSolaraVariants(
+    "SOLARA Cola Stainless Steel Bottle (1000ml)",
+    "Drinkware",
+    "A SOLARA Cola stainless-steel bottle for everyday hydration.",
+    ["Stainless-steel bottle"],
+    [
+      { sku: "SOL-INS-WB-661", label: "Steel", image: "SOLARA COLA 1000 ml Stainless Steel Bottle.webp", specs: { Capacity: "1000ml", Color: "Steel" } },
+      { sku: "SOL-INS-WB-664", label: "Black", image: "SOLARA COLA 1000 ml Stainless Steel Bottle.webp", specs: { Capacity: "1000ml", Color: "Black" } },
+      { sku: "SOL-INS-WB-665", label: "Green", image: "SOLARA COLA 1000 ml Stainless Steel Bottle.webp", specs: { Capacity: "1000ml", Color: "Green" } }
+    ]
+  ),
+  ...createSolaraVariants(
+    "SOLARA Cola Stainless Steel Bottle (1500ml)",
+    "Drinkware",
+    "A SOLARA Cola stainless-steel bottle for everyday hydration.",
+    ["Stainless-steel bottle"],
+    [
+      { sku: "SOL-INS-WB-662", label: "Steel", image: "SOLARA COLA 1000 ml Stainless Steel Bottle.webp", specs: { Capacity: "1500ml", Color: "Steel" } }
+    ]
+  ),
+  ...createSolaraVariants(
+    "SOLARA Insulated Flask",
+    "Flasks",
+    "A double-wall insulated flask for keeping beverages at the desired temperature.",
+    ["Double-wall insulated design"],
+    [
+      { sku: "SOL-INS-FLK-651", label: "500ml", image: "Insulated Flask Double Wall.webp", specs: { Capacity: "500ml" } },
+      { sku: "SOL-INS-FLK-652", label: "1000ml", image: "Insulated Flask Double Wall.webp", specs: { Capacity: "1000ml" } }
+    ]
+  )
 ];

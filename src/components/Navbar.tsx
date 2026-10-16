@@ -3,6 +3,7 @@ import { Phone, Mail, Clock, Search, Mic, Menu, X, ChevronDown } from 'lucide-re
 
 interface NavbarProps {
   currentPage: string;
+  selectedCategory?: string;
   setCurrentPage: (page: string) => void;
   setSelectedCategory: (cat: string) => void;
   setSelectedType: (type: string) => void;
@@ -13,6 +14,7 @@ interface NavbarProps {
 
 export default function Navbar({
   currentPage,
+  selectedCategory = '',
   setCurrentPage,
   setSelectedCategory,
   setSelectedType,
@@ -23,48 +25,10 @@ export default function Navbar({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchFocused, setSearchQueryFocused] = useState(false);
 
-  const categories = [
-    { 
-      name: "Fans", 
-      sub: ["Ceiling Fans", "Table Fans", "Exhaust Fans", "BLDC Fans"] 
-    },
-    { 
-      name: "Coolers", 
-      sub: ["Desert Coolers", "Personal Cooler", "Tower Coolers"] 
-    },
-    { 
-      name: "Kitchen Appliances", 
-      sub: [
-        "Food Preparation",
-        "Hand Blender",
-        "Juicer",
-        "Mixer Grinder",
-        "Wet Mixer Grinder",
-        "Air Fryer",
-        "Electric Kettle",
-        "Microwave",
-        "OTG",
-        "Rice Cooker",
-        "Sandwich Maker",
-        "Toaster"
-      ] 
-    },
-    { 
-      name: "Home Appliances", 
-      sub: ["Washing Machine", "Refrigerator", "Air Conditioners"] 
-    },
-    { 
-      name: "Steamers", 
-      sub: ["Garment Steamer", "Iron"] 
-    },
-    { 
-      name: "Water Heaters", 
-      sub: ["Instant Water Heaters", "Storage Water Heaters", "Immersion Rod", "Room Heaters"] 
-    }
-  ];
+  const brands = ["solara", "wipro", "kenstar", "philips"];
 
-  const handleCategoryClick = (catName: string) => {
-    setSelectedCategory(catName);
+  const handleCategoryClick = (brandName: string) => {
+    setSelectedCategory(brandName);
     setSelectedType('');
     setSearchQuery('');
     setCurrentPage('products');
@@ -118,9 +82,9 @@ export default function Navbar({
           className="flex items-center gap-2 cursor-pointer group flex-shrink-0"
         >
           <img 
-            src="logo.png" 
+            src="matrix-logo.jpeg"
             alt="Matrix Corp" 
-            className="w-11 h-11 object-contain rounded-xl shadow-md transition-all group-hover:scale-105"
+            className="w-12 h-12 object-contain rounded-full shadow-md transition-all group-hover:scale-105"
             referrerPolicy="no-referrer"
           />
           <div>
@@ -222,33 +186,31 @@ export default function Navbar({
         </button>
       </nav>
 
-      {/* CATEGORY STRIP WITH DROPDOWNS */}
-      <div className="hidden md:flex bg-slate-50 border-y border-slate-200 justify-center gap-1 relative z-40">
-        {categories.map((cat, idx) => (
-          <div key={idx} className="group relative">
-            <button 
-              onClick={() => handleCategoryClick(cat.name)}
-              className="flex items-center gap-1 py-3.5 px-5 text-xs font-bold text-[#0D1B3E] hover:text-red-600 uppercase tracking-widest transition-colors border-b-2 border-transparent group-hover:border-red-600"
-            >
-              {cat.name}
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-red-600 transition-transform duration-200 group-hover:rotate-180" />
-            </button>
-
-            {/* DROPDOWN MENU */}
-            <div className="absolute top-full left-1/2 -translate-x-1/2 w-60 bg-white rounded-b-xl shadow-xl py-3 border-t-2 border-red-600 hidden group-hover:block animate-fadeIn pointer-events-auto">
-              {cat.sub.map((subItem, sIdx) => (
-                <button
-                  key={sIdx}
-                  onClick={() => handleSubCategoryClick(cat.name, subItem)}
-                  className="w-full text-left text-xs font-medium text-slate-700 hover:text-red-600 hover:bg-red-50 py-2.5 px-5 transition-colors"
-                >
-                  {subItem}
-                </button>
-              ))}
+      {/* BRAND DROPDOWN STRIP UNDER NAV BAR */}
+      {(currentPage === 'products' || currentPage === 'home') && (
+        <div className="bg-slate-50 border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 py-2.5">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <span className="text-[10px] font-black uppercase tracking-[0.22em] text-slate-500">Shop by brand</span>
+              <div className="flex flex-wrap items-center gap-2">
+                {brands.map((brand) => (
+                  <button
+                    key={brand}
+                    onClick={() => handleCategoryClick(brand)}
+                    className={`px-4 py-2 rounded-full border text-[10px] md:text-xs font-black uppercase tracking-[0.14em] transition-all ${
+                      selectedCategory === brand
+                        ? 'bg-red-600 text-white border-red-600 shadow-lg shadow-red-600/20'
+                        : 'bg-white text-[#0D1B3E] border-slate-200 hover:border-red-500 hover:text-red-600'
+                    }`}
+                  >
+                    {brand.toUpperCase()}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      )}
 
       {/* MOBILE DRAWER */}
       {mobileMenuOpen && (
@@ -326,16 +288,16 @@ export default function Navbar({
               {/* Product Category shortcuts */}
               <div className="mb-4">
                 <h4 className="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-2 px-4">
-                  Product Shortcuts
+                  Brand Shortcuts
                 </h4>
                 <div className="grid grid-cols-2 gap-2 px-2">
-                  {categories.map((c, i) => (
+                  {brands.map((brand, i) => (
                     <button
                       key={i}
-                      onClick={() => handleCategoryClick(c.name)}
+                      onClick={() => handleCategoryClick(brand)}
                       className="text-left text-xs font-semibold text-slate-700 hover:text-red-600 hover:bg-red-50 p-2.5 rounded-lg transition-colors border border-slate-100"
                     >
-                      {c.name}
+                      {brand.toUpperCase()}
                     </button>
                   ))}
                 </div>

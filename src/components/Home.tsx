@@ -9,7 +9,7 @@ import {
 interface HomeProps {
   products: Product[];
   onViewProduct: (product: Product) => void;
-  onSelectCategory: (category: string) => void;
+  onSelectCategory: (category: string, type?: string) => void;
   onBuyNow: (product: Product) => void;
   setCurrentPage: (page: string) => void;
 }
@@ -34,13 +34,13 @@ export default function Home({
       accent: "from-amber-600/30 to-slate-900/90"
     },
     {
-      title: "Cool Comfort. Better Living.",
-      subtitle: "Breathe fresh, chilled air with the ultra-dense 3D Honeycomb Turbocool cooling range, engineered for dry tropical summers.",
-      buttonText: "Browse Air Coolers",
-      category: "Coolers",
-      image: "slide3.png",
-      fallbackImage: "https://images.unsplash.com/photo-1585338111522-a306f2dfad36?auto=format&fit=crop&q=80&w=1200",
-      accent: "from-blue-600/30 to-slate-900/90"
+      title: "Powerful Sound. Better Living.",
+      subtitle: "Bring every moment to life with immersive audio, from powerful party speakers to versatile home sound systems.",
+      buttonText: "Explore Sound Systems",
+      category: "philips",
+      image: "audio-speaker-hero.jpg",
+      fallbackImage: "philips/party-speaker.jpg",
+      accent: "from-violet-600/30 to-slate-900/90"
     },
     {
       title: "Premium Appliances. Local Trust.",
@@ -61,8 +61,87 @@ export default function Home({
   }, []);
 
   // BESTSELLERS STATE
-  const [activeTab, setActiveTab] = useState<string>("Fans");
-  const filteredBestsellers = products.filter(p => p.category === activeTab).slice(0, 12);
+  const brandTabs = ["solara", "wipro", "kenstar", "philips"];
+  const brandToCategory: Record<string, string> = {
+    solara: "solara",
+    wipro: "wipro",
+    kenstar: "kenstar",
+    philips: "philips"
+  };
+  const [activeTab, setActiveTab] = useState<string>("solara");
+  const activeCategory = brandToCategory[activeTab] || "solara";
+  const filteredBestsellers = products.filter(p => p.category === activeCategory).slice(0, 12);
+
+  const productHighlights = [
+    {
+      id: "kitchen-appliances",
+      categoryName: "Kitchen Appliances",
+      title: "Kitchen Appliances",
+      tag: "Smart Kitchen",
+      tagBg: "bg-amber-500 text-slate-950",
+      image: "prod_kitchen.png",
+      fallback: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=1200",
+      slideDirection: "left"
+    },
+    {
+      id: "sound-speakers",
+      categoryName: "Sound Speakers",
+      filterCategory: "philips",
+      filterTypes: ["Party Speakers", "Tower Speakers", "Multimedia Speakers", "Bluetooth Speakers", "Radios"],
+      title: "Sound Speakers",
+      tag: "Premium Audio",
+      tagBg: "bg-red-600",
+      image: "prod_speaker.png",
+      fallback: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&q=80&w=1200",
+      slideDirection: "right"
+    },
+    {
+      id: "mixer-grinders",
+      categoryName: "Mixer & Grinders",
+      filterCategory: "Kitchen Appliances",
+      filterTypes: ["Mixer", "Mixer Grinder", "Wet Mixer Grinder"],
+      title: "Mixer & Grinders",
+      tag: "Kitchen Power",
+      tagBg: "bg-red-600",
+      image: "home-mixer-grinder-card.webp",
+      fallback: "home-mixer-grinder-card.webp",
+      slideDirection: "left"
+    },
+    {
+      id: "iron",
+      categoryName: "Iron",
+      filterCategory: "Steamers",
+      filterTypes: ["Iron"],
+      title: "Iron",
+      tag: "Crisp Press",
+      tagBg: "bg-red-600",
+      image: "prod_iron.png",
+      fallback: "https://images.unsplash.com/photo-1489274495757-95c7c837b101?auto=format&fit=crop&q=80&w=600",
+      slideDirection: "right"
+    },
+    {
+      id: "fans",
+      categoryName: "Fans",
+      title: "Fans",
+      tag: "BLDC Tech",
+      tagBg: "bg-yellow-500 text-slate-950",
+      image: "home-fan-card.webp",
+      fallback: "home-fan-card.webp",
+      slideDirection: "left"
+    },
+    {
+      id: "washing-machine",
+      categoryName: "Washing Machines",
+      filterCategory: "Home Appliances",
+      filterTypes: ["Washing Machine"],
+      title: "Washing Machine",
+      tag: "Home Laundry",
+      tagBg: "bg-blue-600",
+      image: "home-washing-machine-card.webp",
+      fallback: "home-washing-machine-card.webp",
+      slideDirection: "right"
+    }
+  ];
 
   // TRUST ROTATOR CAROUSEL STATE
   const [trustIndex, setTrustIndex] = useState(0);
@@ -187,8 +266,6 @@ export default function Home({
         </div>
       </section>
 
-      
-
       {/* DISCOVER OUR PRODUCTS - THE CATEGORY GRID WITH SLIDING ANIMATIONS */}
       <section className="py-16 px-6 bg-slate-50 overflow-hidden">
         <div className="max-w-6xl mx-auto">
@@ -200,73 +277,12 @@ export default function Home({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                id: "heaters",
-                categoryName: "Water Heaters",
-                title: "Storage Geysers",
-                tag: "Safe Bath",
-                tagBg: "bg-red-600",
-                image: "prod_heater.png",
-                fallback: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=600",
-                slideDirection: "left"
-              },
-              {
-                id: "fans",
-                categoryName: "Fans",
-                title: "Energy Saving Fans",
-                tag: "BLDC Tech",
-                tagBg: "bg-yellow-500 text-slate-950",
-                image: "prod_fan.png",
-                fallback: "https://images.unsplash.com/photo-1618943716616-9818b2c45300?auto=format&fit=crop&q=80&w=600",
-                slideDirection: "right"
-              },
-              {
-                id: "coolers",
-                categoryName: "Coolers",
-                title: "Desert & Tower Coolers",
-                tag: "Extreme Cool",
-                tagBg: "bg-red-600",
-                image: "prod_cooler.png",
-                fallback: "https://images.unsplash.com/photo-1585338111522-a306f2dfad36?auto=format&fit=crop&q=80&w=600",
-                slideDirection: "left"
-              },
-              {
-                id: "kitchen",
-                categoryName: "Kitchen Appliances",
-                title: "Kitchen Helpers",
-                tag: "Smart Kitchen",
-                tagBg: "bg-amber-500 text-slate-950",
-                image: "prod_kitchen.png",
-                fallback: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=1200",
-                slideDirection: "right"
-              },
-              {
-                id: "steamers",
-                categoryName: "Steamers",
-                title: "Steam & Dry Irons",
-                tag: "Crisp Press",
-                tagBg: "bg-red-600",
-                image: "prod_iron.png",
-                fallback: "https://images.unsplash.com/photo-1489274495757-95c7c837b101?auto=format&fit=crop&q=80&w=600",
-                slideDirection: "left"
-              },
-              {
-                id: "home_appliances",
-                categoryName: "Home Appliances",
-                title: "Washing Machines",
-                tag: "Home Laundry",
-                tagBg: "bg-blue-600",
-                image: "prod_washing.png",
-                fallback: "https://images.unsplash.com/photo-1582730149719-611130850a11?auto=format&fit=crop&q=80&w=600",
-                slideDirection: "right"
-              }
-            ].map((item, idx) => {
+            {productHighlights.map((item, idx) => {
               const slideLeft = item.slideDirection === "left";
               return (
                 <motion.div
                   key={item.id}
-                  onClick={() => onSelectCategory(item.categoryName)}
+                  onClick={() => onSelectCategory(item.filterCategory ?? item.categoryName, item.filterTypes?.join("|") ?? "")}
                   initial={{ opacity: 0, x: slideLeft ? -100 : 100 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
@@ -297,21 +313,23 @@ export default function Home({
       {/* BESTSELLERS TABS DYNAMIC CATALOG */}
       <section className="py-16 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-            <div>
-              <span className="text-xs font-bold text-red-600 uppercase tracking-widest block mb-2">Highly Rated Range</span>
-              <h2 className="text-3xl font-extrabold text-[#0D1B3E] uppercase tracking-tight">
-                Our Top <span className="text-red-600">Bestsellers</span>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+            <div className="flex flex-col gap-2 md:gap-3">
+              <span className="text-[10px] md:text-xs font-black text-red-600 uppercase tracking-[0.35em]">
+                Highly Rated Range
+              </span>
+              <h2 className="text-3xl md:text-6xl font-black uppercase leading-[0.9] tracking-[-0.04em]">
+                <span className="text-[#0D1B3E] block md:inline">Our Top</span>
+                <span className="text-red-600 block md:inline">Bestsellers</span>
               </h2>
             </div>
 
-            {/* Scrollable Tabs */}
-            <div className="flex gap-2 overflow-x-auto pb-2 mt-6 md:mt-0 no-scrollbar">
-              {["Fans", "Coolers", "Kitchen Appliances", "Home Appliances", "Steamers", "Water Heaters"].map((tab) => (
+            <div className="flex gap-2 overflow-x-auto pb-2 mt-2 md:mt-0 no-scrollbar">
+              {brandTabs.map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${activeTab === tab ? 'bg-red-600 text-white shadow-md shadow-red-600/10' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}
+                  className={`px-4 md:px-5 py-2.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.18em] transition-all cursor-pointer whitespace-nowrap ${activeTab === tab ? 'bg-red-600 text-white shadow-md shadow-red-600/15' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}
                 >
                   {tab}
                 </button>
@@ -368,17 +386,17 @@ export default function Home({
             })}
           </div>
 
-          {products.filter(p => p.category === activeTab).length > 12 && (
+          {products.filter(p => p.category === activeCategory).length > 12 && (
             <div className="text-center mt-12">
               <button 
                 onClick={() => {
-                  onSelectCategory(activeTab);
+                  onSelectCategory(activeCategory);
                   setCurrentPage('products');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 className="inline-flex items-center gap-2 bg-[#0D1B3E] hover:bg-red-600 text-white font-bold text-xs uppercase py-3.5 px-8 rounded-lg shadow-lg hover:shadow-red-600/25 transition-all cursor-pointer"
               >
-                View All {activeTab} ({products.filter(p => p.category === activeTab).length} products)
+                View All {activeCategory} ({products.filter(p => p.category === activeCategory).length} products)
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>

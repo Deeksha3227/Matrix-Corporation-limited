@@ -40,13 +40,26 @@ export default function Products({
   // EMI CALC STATES FOR MODAL
   const [emiTenure, setEmiTenure] = useState<number>(9); // Default 9 months
 
-  // Filter products logic
-  const filteredProducts = PRODUCTS.filter(p => {
-    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          p.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === '' || p.category === selectedCategory;
-    const matchesType = selectedType === '' || p.type === selectedType;
-    return matchesSearch && matchesCategory && matchesType;
+  const filteredProducts = PRODUCTS.filter((product) => {
+    const selectedBrand = selectedCategory?.toLowerCase();
+    const selectedTypes = selectedType.split('|').map(type => type.trim().toLowerCase()).filter(Boolean);
+    const normalizedSearch = searchQuery.trim().toLowerCase();
+
+    const matchesBrand =
+      !selectedBrand ||
+      product.category.toLowerCase() === selectedBrand;
+
+    const matchesType =
+      selectedTypes.length === 0 ||
+      selectedTypes.includes(product.type.toLowerCase());
+
+    const matchesSearch =
+      !normalizedSearch ||
+      product.name.toLowerCase().includes(normalizedSearch) ||
+      product.category.toLowerCase().includes(normalizedSearch) ||
+      product.type.toLowerCase().includes(normalizedSearch);
+
+    return matchesBrand && matchesType && matchesSearch;
   });
 
   // Image error state tracker to substitute fallbacks
@@ -54,7 +67,7 @@ export default function Products({
     e.currentTarget.src = fallback;
   };
 
-  const categories = ["Fans", "Coolers", "Kitchen Appliances", "Home Appliances", "Steamers", "Water Heaters"];
+  const categories = ["solara", "wipro", "kenstar", "philips"];
 
   return (
     <div className="w-full bg-slate-50 min-h-screen">
@@ -94,61 +107,29 @@ export default function Products({
             />
           </div>
 
-          {/* Category Filter */}
+          {/* Brand Filter */}
           <div className="mb-6">
             <h4 className="text-[11px] font-bold text-[#0D1B3E] uppercase tracking-wider mb-3">
-              Categories
+              Brands
             </h4>
             <div className="flex flex-col gap-1.5">
               <button 
                 onClick={() => handleCategorySelect('')}
                 className={`w-full text-left text-xs font-semibold py-2 px-3 rounded-lg transition-colors ${selectedCategory === '' ? 'bg-red-50 text-red-600 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
               >
-                All Categories ({PRODUCTS.length})
+                All Brands
               </button>
-              {categories.map((cat, idx) => {
-                const count = PRODUCTS.filter(p => p.category === cat).length;
-                return (
-                  <button 
-                    key={idx}
-                    onClick={() => handleCategorySelect(cat)}
-                    className={`w-full text-left text-xs font-semibold py-2 px-3 rounded-lg transition-colors ${selectedCategory === cat ? 'bg-red-50 text-red-600 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
-                  >
-                    {cat} ({count})
-                  </button>
-                );
-              })}
+              {categories.map((cat, idx) => (
+                <button 
+                  key={idx}
+                  onClick={() => handleCategorySelect(cat)}
+                  className={`w-full text-left text-xs font-semibold py-2 px-3 rounded-lg transition-colors ${selectedCategory === cat ? 'bg-red-50 text-red-600 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
+                >
+                  {cat.toUpperCase()}
+                </button>
+              ))}
             </div>
           </div>
-
-          {/* Fan Types Filter */}
-          {selectedCategory === 'Fans' && (
-            <div className="mb-6 border-t border-slate-100 pt-5">
-              <h4 className="text-[11px] font-bold text-[#0D1B3E] uppercase tracking-wider mb-3">
-                Fan Types
-              </h4>
-              <div className="flex flex-col gap-1.5">
-                <button 
-                  onClick={() => setSelectedType('')}
-                  className={`w-full text-left text-xs font-semibold py-2 px-3 rounded-lg transition-colors ${selectedType === '' ? 'bg-red-50 text-red-600 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
-                >
-                  All Fans ({PRODUCTS.filter(p => p.category === 'Fans').length})
-                </button>
-                {["Ceiling Fans", "Table Fans", "Exhaust Fans", "BLDC Fans"].map((type, idx) => {
-                  const count = PRODUCTS.filter(p => p.category === 'Fans' && p.type === type).length;
-                  return (
-                    <button 
-                      key={idx}
-                      onClick={() => setSelectedType(type)}
-                      className={`w-full text-left text-xs font-semibold py-2 px-3 rounded-lg transition-colors ${selectedType === type ? 'bg-red-50 text-red-600 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
-                    >
-                      {type} ({count})
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
 
         </aside>
 
@@ -176,9 +157,13 @@ export default function Products({
           {filteredProducts.length === 0 && (
             <div className="bg-white border border-slate-200/60 rounded-2xl p-16 text-center shadow-sm">
               <Search className="w-12 h-12 text-slate-300 mx-auto" />
-              <h3 className="font-extrabold text-[#0D1B3E] text-lg mt-4 mb-2">No Products Found</h3>
+              <h3 className="font-extrabold text-[#0D1B3E] text-lg mt-4 mb-2">
+                {PRODUCTS.length === 0 ? "Product Catalogue Is Empty" : "No Products Found"}
+              </h3>
               <p className="text-slate-500 text-xs max-w-sm mx-auto">
-                We couldn't find any appliances matching your search. Try resetting the filters or adjusting the price range.
+                {PRODUCTS.length === 0
+                  ? "Add your products to src/data/products.ts and they will appear here."
+                  : "We couldn't find any appliances matching your search. Try resetting the filters or adjusting the price range."}
               </p>
               <button 
                 onClick={() => {
@@ -194,16 +179,15 @@ export default function Products({
           )}
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {filteredProducts.map((product) => {
-              const emi = Math.round(product.mrp / 9);
               return (
                 <article 
                   key={product.id}
-                  className="bg-white border border-slate-200/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group hover:-translate-y-1"
+                  className="bg-white border border-slate-200/70 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group hover:-translate-y-1"
                 >
                   {/* Image container */}
-                  <div className="relative bg-white p-6 flex items-center justify-center h-56 border-b border-slate-100 flex-shrink-0">
+                  <div className="relative bg-white p-6 flex items-center justify-center h-64 border-b border-slate-100 flex-shrink-0">
                     <img 
                       src={product.image} 
                       alt={product.name}
@@ -217,7 +201,7 @@ export default function Products({
                   </div>
 
                   {/* Body container */}
-                  <div className="p-5 flex flex-col justify-between flex-1">
+                  <div className="p-6 flex flex-col justify-between flex-1">
                     <div>
                       {/* Category Label */}
                       <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest block mb-1">
@@ -225,18 +209,17 @@ export default function Products({
                       </span>
                       <h3 
                         onClick={() => setActiveProduct(product)}
-                        className="font-bold text-slate-900 text-sm leading-snug mb-3 hover:text-red-600 transition-colors cursor-pointer"
+                        className="font-bold text-slate-900 text-base leading-snug mb-3 hover:text-red-600 transition-colors cursor-pointer"
                       >
                         {product.name}
                       </h3>
-
                     </div>
 
-                    <div className="pt-3 border-t border-slate-100">
+                    <div className="pt-4 border-t border-slate-100">
                       <div className="w-full">
                         <button 
                           onClick={() => setActiveProduct(product)}
-                          className="w-full bg-[#0D1B3E] hover:bg-red-600 text-white text-[11px] font-extrabold py-2.5 rounded-lg text-center transition-all duration-300 cursor-pointer shadow-sm hover:shadow"
+                          className="w-full bg-[#0D1B3E] hover:bg-red-600 text-white text-xs font-extrabold py-3 rounded-lg text-center transition-all duration-300 cursor-pointer shadow-sm hover:shadow"
                         >
                           View Details
                         </button>
@@ -253,7 +236,7 @@ export default function Products({
       {/* DYNAMIC PRODUCT DETAILS MODAL */}
       {activeProduct && (
         <div className="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl relative max-h-[90vh] flex flex-col animate-scaleUp">
+          <div className="bg-white w-full max-w-6xl rounded-2xl overflow-hidden shadow-2xl relative max-h-[94vh] flex flex-col animate-scaleUp">
             
             {/* Close Button */}
             <button 
@@ -261,18 +244,18 @@ export default function Products({
                 setActiveProduct(null);
                 setEmiTenure(9); // Reset tenure
               }}
-              className="absolute top-4 right-4 z-10 p-2 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full transition-colors"
+              className="absolute top-4 right-4 z-10 p-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
             {/* Modal Body Scroll Container */}
-            <div className="overflow-y-auto p-6 md:p-10 flex-1">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <div className="overflow-y-auto p-6 md:p-10 lg:p-11 flex-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
                 
                 {/* Left Product Image Area */}
                 <div>
-                  <div className="bg-slate-50 p-8 rounded-xl border border-slate-100 flex items-center justify-center h-80 mb-4">
+                  <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 flex items-center justify-center h-80 md:h-[400px] mb-5">
                     <img 
                       src={activeProduct.image} 
                       alt={activeProduct.name}
@@ -281,7 +264,7 @@ export default function Products({
                       referrerPolicy="no-referrer"
                     />
                   </div>
-                  <div className="bg-red-50 p-4 rounded-xl border border-red-100 text-red-800 text-xs">
+                  <div className="bg-red-50 p-5 rounded-2xl border border-red-100 text-red-800 text-sm">
                     <h5 className="font-bold flex items-center gap-1.5 mb-1 text-red-900">
                       <Info className="w-3.5 h-3.5" />
                       Authorised Mangalore Supply
@@ -294,7 +277,7 @@ export default function Products({
 
                 {/* Right Specifications and EMI Calculator */}
                 <div>
-                  <span className="text-xs uppercase font-extrabold text-red-600 tracking-wider block mb-1">
+                  <span className="text-sm uppercase font-extrabold text-red-600 tracking-wider block mb-2">
                     {activeProduct.category}
                   </span>
                   
@@ -305,7 +288,7 @@ export default function Products({
                     </div>
                   )}
 
-                  <h2 className="font-extrabold text-xl text-[#0D1B3E] mb-3 leading-tight flex items-center gap-2">
+                  <h2 className="font-extrabold text-2xl text-[#0D1B3E] mb-4 leading-tight flex items-center gap-2">
                     <span>{activeProduct.name}</span>
                     {activeProduct.outOfStock && (
                       <span className="bg-red-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded uppercase tracking-wider">
@@ -314,23 +297,41 @@ export default function Products({
                     )}
                   </h2>
 
+                  {(activeProduct.subtitle || activeProduct.sku || activeProduct.mrp !== undefined) && (
+                    <div className="mb-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
+                      {activeProduct.subtitle && (
+                        <p className="mb-3 font-semibold text-slate-800">{activeProduct.subtitle}</p>
+                      )}
+                      <div className="grid grid-cols-2 gap-3 text-sm text-slate-700">
+                        {activeProduct.sku && (
+                          <p><span className="font-semibold">SKU:</span> {activeProduct.sku}</p>
+                        )}
+                        {activeProduct.mrp !== undefined && (
+                          <p className="font-bold text-[#0D1B3E]">
+                            <span className="font-semibold">MRP</span> ₹{activeProduct.mrp.toLocaleString("en-IN")}/
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Custom EMI, Cashbacks, and SKU badge */}
                   
 
                   {/* Description */}
-                  <p className="text-slate-600 text-xs leading-relaxed mb-6">
+                  <p className="text-slate-600 text-sm leading-relaxed mb-8">
                     {activeProduct.description}
                   </p>
 
                   {/* Key Features Bullets */}
                   <div className="mb-6">
-                    <h4 className="text-[11px] font-bold text-slate-800 uppercase tracking-widest mb-3">
+                    <h4 className="text-xs font-bold text-slate-800 uppercase tracking-widest mb-4">
                       Key Highlights
                     </h4>
                     <ul className="flex flex-col gap-2">
                       {activeProduct.features.map((feat, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs text-slate-700 font-medium">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                        <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-700 font-medium">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
                           {feat}
                         </li>
                       ))}
