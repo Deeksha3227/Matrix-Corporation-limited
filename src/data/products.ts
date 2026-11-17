@@ -1572,6 +1572,21 @@ export const PRODUCTS: Product[] = [
     subtitle: "4.5L with See-Through Window"
   },
   {
+    id: "solara-air-fryer-6-3l",
+    category: "solara",
+    type: "Air Fryers",
+    name: "SOLARA Air Fryer (6.3L)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/air-fryer6.3.jpg",
+    fallbackImage: "solara/air-fryer6.3.jpg",
+    tag: "SOLARA",
+    description: "SOLARA 6.3L air fryer with a viewing window and digital touch controls, sized for family meals.",
+    features: ["6.3L capacity", "Front viewing window", "Digital touch controls"],
+    specs: { Capacity: "6.3L" },
+    subtitle: "6.3L Capacity"
+  },
+  {
     id: "solara-cold-press-juicer-150w",
     category: "solara",
     type: "Cold Press Juicers",
