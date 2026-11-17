@@ -55,9 +55,14 @@ export default function Products({
 
     const matchesSearch =
       !normalizedSearch ||
-      product.name.toLowerCase().includes(normalizedSearch) ||
-      product.category.toLowerCase().includes(normalizedSearch) ||
-      product.type.toLowerCase().includes(normalizedSearch);
+      [
+        product.name,
+        product.category,
+        product.type,
+        product.sku ?? '',
+        ...product.features,
+        ...Object.values(product.specs)
+      ].some((value) => value.toLowerCase().includes(normalizedSearch));
 
     return matchesBrand && matchesType && matchesSearch;
   });
@@ -324,7 +329,7 @@ export default function Products({
                   </p>
 
                   {/* Key Features Bullets */}
-                  <div className="mb-6">
+                  {activeProduct.features.length > 0 && <div className="mb-6">
                     <h4 className="text-xs font-bold text-slate-800 uppercase tracking-widest mb-4">
                       Key Highlights
                     </h4>
@@ -336,7 +341,7 @@ export default function Products({
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </div>}
 
                   {/* Technical Specs Table */}
                   <div className="mb-8">
