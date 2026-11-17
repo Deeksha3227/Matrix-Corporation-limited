@@ -131,6 +131,21 @@ const INSULATED_BOTTLE_FEATURES = [
 
 export const PRODUCTS: Product[] = [
   {
+    id: "solara-electric-kettle-1-8l",
+    category: "solara",
+    type: "Electric Kettles",
+    name: "SOLARA Electric Kettle (1.8L)",
+    reviewsCount: "",
+    rating: 0,
+    image: "solara/solara_kettle.jpg",
+    fallbackImage: "solara/solara_kettle.jpg",
+    tag: "SOLARA",
+    description: "SOLARA electric kettle with a 1.8L capacity.",
+    features: [],
+    specs: { Capacity: "1.8L" },
+    subtitle: "1.8L Capacity"
+  },
+  {
     id: "solara-large-digital-air-fryer-oven-12l",
     category: "solara",
     type: "Air Fryers",
